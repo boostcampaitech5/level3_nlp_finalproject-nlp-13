@@ -26,3 +26,27 @@ def make_path_collection(path: str) -> dict[str:list]:
     
     return path_collection
 
+
+
+def extract_sentence_from_data(path_collection: dict[str:list]) -> dict[str:dict]:
+    '''
+    입력값: dict / 예시) {'폴더명1':[파일경로1, 파일경로2...], '폴더명2':[파일경로2-1,...]}
+    반환값: dict / 예시) key=폴더명, value= {파일명1:문장1, 파일명2:문장2...}
+    저장파일: json / 반환값을 json으로 저장. 
+    
+    '''    
+    before_g2p_sentences = defaultdict(dict)
+    for path_of_folder, file_path_collection in path_collection.items():
+        for file_path in file_path_collection:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                file_data = json.load(f)
+                sentence = file_data['발화정보']['stt']
+                file_name_for_audio = file_path.replace('AI챗봇_라벨', 'AI챗봇_원천')
+                path_of_folder_for_audio = path_of_folder.replace('AI챗봇_라벨', 'AI챗봇_원천')
+                
+                before_g2p_sentences[path_of_folder_for_audio][file_name_for_audio] = sentence
+    save_path = './text_data'
+    with open(f"{save_path}/before_g2p_sentences.json", "w", encoding='utf-8') as outfile:
+        json.dump(before_g2p_sentences, outfile, indent = 4, ensure_ascii=False)
+    
+    return before_g2p_sentences
