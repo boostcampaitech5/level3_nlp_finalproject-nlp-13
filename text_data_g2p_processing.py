@@ -50,3 +50,40 @@ def extract_sentence_from_data(path_collection: dict[str:list]) -> dict[str:dict
         json.dump(before_g2p_sentences, outfile, indent = 4, ensure_ascii=False)
     
     return before_g2p_sentences
+
+
+def g2p_processing(before_g2p_sentences: dict[str:dict], descriptive: bool =True, group_vowels: bool =True) -> None:
+    
+    '''
+    입력값: dict / 예시) key=폴더명, value= {파일명1:문장1, 파일명2:문장2...}
+    반환값: None
+    저장 파일: json / 예시) key=폴더명, value= {파일명1:g2p 처리 문장1, 파일명2:g2p 처리 문장2...}
+    
+    파라미터 번경으로 여러 G2P기능 활용 가능
+    descriptive - 
+    예시) False 일 때: 계산이 -> 계사니 
+          True 일 때: 계산이 -> 게사니 
+    group_vowels
+    예시) False 일 때: 얘기 -> 얘기 
+          True 일 때: 얘기 -> 예기 
+    '''
+    g2p = G2p()
+    after_g2p_sentences = defaultdict(dict)
+    for folder_name, file_sentence_pairs in before_g2p_sentences.items():
+        for file_name, sentence in file_sentence_pairs.items():
+            g2p_processed_sentence = g2p(sentence, descriptive=descriptive, group_vowels=group_vowels)
+            after_g2p_sentences[folder_name][file_name] = g2p_processed_sentence
+    save_path = './text_data'
+    with open(f"{save_path}/after_g2p_sentences.json", "w", encoding='utf-8') as outfile:
+        json.dump(after_g2p_sentences, outfile, indent = 4, ensure_ascii=False)
+        
+        
+if __name__ == "__main__":
+    # 본인이 AI허브에서 Validation을 다운받아 압축해제 후 서버에 넣으시면 됩니다.
+    current_path = os.getcwd()
+    data_path = current_path + '\\AI_HUB\\Validation\\AI챗봇_라벨'
+    
+    os.makedirs("text_data", exist_ok=True)
+    path_collection = make_path_collection(data_path)
+    before_g2p_sentences = extract_sentence_from_data(path_collection)
+    g2p_processing(before_g2p_sentences)
