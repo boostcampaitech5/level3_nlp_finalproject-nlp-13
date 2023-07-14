@@ -1,0 +1,8 @@
+.git/
+wandb/
+save_model/
+checkpoint-*/
+audio/
+cache/
+*.pyc
+vocab.json
