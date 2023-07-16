@@ -1,6 +1,12 @@
 from datasets import load_dataset, Audio, Dataset
+from sklearn.model_selection import train_test_split
+import json
 
 def get_dataset(processor):
+    with open('label.json', "r", encoding="utf8") as f:
+        f = json.load(f)
+    
+    trainx, testx, trainy, testy = train_test_split(f['audio'], f['sentence'], test_size=0.2, shuffle=False, random_state=42)
     
     audio_dataset = Dataset.from_dict({"audio": ['/opt/ml/level3_nlp_finalproject-nlp-13/audio/1.wav', '/opt/ml/level3_nlp_finalproject-nlp-13/audio/2.wav'], "sentence" : ['요즘은 무선 청소기 안 쓰는 사람이 없더라', '현대인의 필수품이 됐구나']})
     audio_dataset_test = Dataset.from_dict({"audio": ['/opt/ml/level3_nlp_finalproject-nlp-13/audio/1.wav', '/opt/ml/level3_nlp_finalproject-nlp-13/audio/3.wav'], "sentence": ['요즘은 무선 청소기 안 쓰는 사람이 없더라', '정말 나만 모른거야']})
