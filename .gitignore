@@ -6,3 +6,12 @@ audio/
 cache/
 *.pyc
 vocab.json
+audio.mp3
+test.py
+Validation/
+.cache/
+.ipython/
+.local/
+.vscode-server/
+.profile
+.wget-hsts
