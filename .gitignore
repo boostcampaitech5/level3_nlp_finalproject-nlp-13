@@ -10,3 +10,4 @@ naver_cloud_key.py
 tts_test.mp3
 .venv
 data
+*.woff
