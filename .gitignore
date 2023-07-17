@@ -7,11 +7,14 @@ cache/
 *.pyc
 vocab.json
 audio.mp3
-test.py
-Validation/
 .cache/
 .ipython/
 .local/
 .vscode-server/
 .profile
 .wget-hsts
+text_data/
+nltk_data/
+data/
+.bash_history
+nohup.out
