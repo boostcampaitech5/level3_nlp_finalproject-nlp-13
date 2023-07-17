@@ -6,3 +6,7 @@ audio/
 cache/
 *.pyc
 vocab.json
+naver_cloud_key.py
+tts_test.mp3
+.venv
+data
