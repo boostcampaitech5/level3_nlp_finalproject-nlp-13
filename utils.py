@@ -2,8 +2,8 @@ import json
 from sklearn.model_selection import train_test_split
 import os
 from tqdm.auto import tqdm
-from collections import defaultdict
 from pathlib import Path
+import re
 
 def set_vocab_dict(path: str):
     # g2p로 변환된 문장으로 vocab.json 파일을 생성합니다.
@@ -14,21 +14,19 @@ def set_vocab_dict(path: str):
     for k, v in f.items():
         for k2, v2 in  v.items():
             vocab.extend(v2)
+    vocab = re.sub(r'[^가-힣]', '', str(vocab))
+    vocab_list = sorted(list(set(vocab)))
 
-    vocab_list = list(set(str(vocab).replace(" ", "")))
     vocab_dict = {v: k for k, v in enumerate(vocab_list)}
 
-    vocab_dict["lg"] = len(vocab_dict)
-    vocab_dict["br"] = len(vocab_dict)
-    vocab_dict["n"] = len(vocab_dict)
-
+    vocab_dict["|"] = len(vocab_dict)
     vocab_dict["[UNK]"] = len(vocab_dict)
     vocab_dict["[PAD]"] = len(vocab_dict)
-    with open('vocab.json', 'w') as vocab_file:
-        json.dump(vocab_dict, vocab_file)
+    with open('vocab.json', 'w', encoding="utf-8") as vocab_file:
+        json.dump(vocab_dict, vocab_file, ensure_ascii=False)
 
 
-def rearrange_data(data_path: str, wav_path: str):
+def rearrange_data(data_path: str):
     '''
     args
         path(str) : after_g2p_sentences.json의 경로
@@ -47,7 +45,7 @@ def rearrange_data(data_path: str, wav_path: str):
             path_of_file = path_of_file.replace('json','wav')
             path_collection.append(path_of_file)
 
-    with open(path, "r", encoding="utf8") as f:
+    with open(data_path, "r", encoding="utf8") as f:
         f = json.load(f)
     
     sent = []
@@ -73,6 +71,6 @@ def train_test(path: str):
 
 
 if __name__ == "__main__":
-        # set_vocab_dict('text_data/after_g2p_sentences.json')
-        rearrange_data('text_data/after_g2p_sentences.json')
+        set_vocab_dict('../text_data/after_g2p_sentences.json')
+        # rearrange_data('text_data/after_g2p_sentences.json')
         # train_test('label.json')
