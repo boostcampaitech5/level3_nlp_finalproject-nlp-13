@@ -1,4 +1,4 @@
-from transformers import AutoConfig, AutoTokenizer, AutoFeatureExtractor, Wav2Vec2Processor, AutoModelForCTC, TrainingArguments, Trainer
+from transformers import AutoConfig, AutoTokenizer, AutoFeatureExtractor, Wav2Vec2CTCTokenizer, Wav2Vec2Processor, AutoModelForCTC, TrainingArguments, Trainer
 import numpy as np
 from datacollator import DataCollatorCTCWithPadding
 from dataset import get_dataset
@@ -13,6 +13,9 @@ config = AutoConfig.from_pretrained(model_checkpoint)
 
 tokenizer_type = config.model_type if config.tokenizer_class is None else None
 config = config if config.tokenizer_class is not None else None
+
+# vocab adaptation 한 걸로 학습시키려면 tokenizer를 아래 코드로 사용하세요
+# tokenizer = Wav2Vec2CTCTokenizer("vocab.json", unk_token="[UNK]", pad_token="[PAD]", word_delimiter_token="|")
 
 tokenizer = AutoTokenizer.from_pretrained(
   model_checkpoint,
