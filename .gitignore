@@ -11,3 +11,9 @@ tts_test.mp3
 .venv
 data
 *.woff
+check.py
+transfer_file.json
+AI_HUB
+.ipynb_checkpoints
+*.json
+requirements.txt
