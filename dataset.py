@@ -3,11 +3,11 @@ from sklearn.model_selection import train_test_split
 import json
 import torch
 
-def get_dataset(processor):
-    with open('label.json', "r", encoding="utf8") as f:
+def get_dataset(processor, data):
+    with open(data, "r", encoding="utf8") as f:
         f = json.load(f)
     
-    trainx, testx, trainy, testy = train_test_split(f['audio'][:10000], f['sentence'][:10000], test_size=0.2, shuffle=False, random_state=42)
+    trainx, testx, trainy, testy = train_test_split(f['audio'], f['sentence'], test_size=0.1, shuffle=False, random_state=42)
     
     audio_dataset = Dataset.from_dict({"audio": trainx, "sentence" : trainy})
     audio_dataset_test = Dataset.from_dict({"audio": testx, "sentence": testy})
