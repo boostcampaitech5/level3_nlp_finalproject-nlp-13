@@ -5,5 +5,7 @@ checkpoint-*/
 audio/
 cache/
 *.pyc
-vocab.json
-label.json
+*.json
+data/
+*.out
+test/
