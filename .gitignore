@@ -11,6 +11,7 @@ tts_test.mp3
 .venv
 data
 *.woff
+<<<<<<< HEAD
 audio.mp3
 .cache/
 .ipython/
@@ -24,3 +25,5 @@ data/
 .bash_history
 nohup.out
 .dotnet/
+=======
+>>>>>>> c63c3ae3e9775d2ee4d089048b816d1d98af3d50

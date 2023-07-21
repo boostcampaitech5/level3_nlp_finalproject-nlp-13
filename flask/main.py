@@ -9,7 +9,7 @@ def home():
     global lang
     global user
     if request.method == 'POST':
-        lang = request.form['language']
+        lang = request.form['language_select']
 
     return render_template("main.html", lang=lang, word1='단어1', word2='단어2', word3='단어3', user=user)
 

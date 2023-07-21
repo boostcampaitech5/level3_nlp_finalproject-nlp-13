@@ -1,6 +1,6 @@
 import torch
 from transformers import Wav2Vec2Processor
-
+import numpy as np
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Union
 
@@ -40,8 +40,8 @@ class DataCollatorCTCWithPadding:
     def __call__(self, features: List[Dict[str, Union[List[int], torch.Tensor]]]) -> Dict[str, torch.Tensor]:
         # split inputs and labels since they have to be of different lenghts and need
         # different padding methods
-        input_features = [{"input_values": feature["input_values"]} for feature in features]
-        label_features = [{"input_ids": feature["labels"]} for feature in features]
+        input_features = [{"input_values": np.array(feature["input_values"])} for feature in features]
+        label_features = [{"input_ids": np.array(feature["labels"])} for feature in features]
 
         batch = self.processor.pad(
             input_features,
@@ -62,6 +62,8 @@ class DataCollatorCTCWithPadding:
         # replace padding with -100 to ignore loss correctly
         labels = labels_batch["input_ids"].masked_fill(labels_batch.attention_mask.ne(1), -100)
 
-        batch["labels"] = labels
+        batch["labels"] = labels.cuda()
+        batch["input_values"] = batch["input_values"].cuda()
+        batch["attention_mask"] = batch["attention_mask"].cuda()
 
         return batch
