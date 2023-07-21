@@ -1,0 +1,30 @@
+.btn-language input[type='radio']{
+    display: none;
+}
+
+.btn-language input[type='radio'] + span{
+    border-color: #00CFFD;
+    border-style: solid;
+    border-radius: 20px;
+    border-width: 0.3px;
+    background-color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 600;
+    height: 27px;
+    padding-left: 8.3px;
+    padding-right: 8.3px;
+}
+
+.btn-language input[type='radio']:checked + span{
+    background-color: #78E7FF;
+    color: #FFFFFF;
+}
+
+
+.language_select{
+    margin-top: 80px;
+    margin-left: 100px;
+    position: fixed;
+    width: 400px;
+}
+

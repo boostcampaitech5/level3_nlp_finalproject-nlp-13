@@ -1,0 +1,37 @@
+.todays_word{
+    background-color: #FFFFFF;
+    border: 1px solid;
+    border-color: #FFFFFF;
+    border-radius: 3%;
+    height: 300px;
+    margin-top: 115px;
+    margin-left: 100px;
+    position: fixed;
+    width:380px;
+}
+
+.word_box{
+    background-color: #00CFFD;
+    border-radius: 10%;
+    color: #FFFFFF;
+    height: 100px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset;
+    font-weight: 500;
+}
+
+.user_info{
+    background-color: #FFFFFF;
+    border: 1px solid;
+    border-color: #FFFFFF;
+    border-radius: 10%;
+    margin-top: 80px;
+    margin-left: 490px;
+    position: fixed;
+    height: 130px;
+    width: 130px;
+}
+
