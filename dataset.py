@@ -1,9 +1,16 @@
 from datasets import load_dataset, Audio, Dataset
+from sklearn.model_selection import train_test_split
+import json
+import torch
 
 def get_dataset(processor):
+    with open('label.json', "r", encoding="utf8") as f:
+        f = json.load(f)
     
-    audio_dataset = Dataset.from_dict({"audio": ['/opt/ml/level3_nlp_finalproject-nlp-13/audio/1.wav', '/opt/ml/level3_nlp_finalproject-nlp-13/audio/2.wav'], "sentence" : ['요즘은 무선 청소기 안 쓰는 사람이 없더라', '현대인의 필수품이 됐구나']})
-    audio_dataset_test = Dataset.from_dict({"audio": ['/opt/ml/level3_nlp_finalproject-nlp-13/audio/1.wav', '/opt/ml/level3_nlp_finalproject-nlp-13/audio/3.wav'], "sentence": ['요즘은 무선 청소기 안 쓰는 사람이 없더라', '정말 나만 모른거야']})
+    trainx, testx, trainy, testy = train_test_split(f['audio'][:10000], f['sentence'][:10000], test_size=0.2, shuffle=False, random_state=42)
+    
+    audio_dataset = Dataset.from_dict({"audio": trainx, "sentence" : trainy})
+    audio_dataset_test = Dataset.from_dict({"audio": testx, "sentence": testy})
 
     dataset = audio_dataset.cast_column("audio", Audio(sampling_rate=16000))
     dataset_test = audio_dataset_test.cast_column("audio", Audio(sampling_rate=16000))
@@ -13,7 +20,7 @@ def get_dataset(processor):
 
         # batched output is "un-batched"
         batch["input_values"] = processor(audio["array"], sampling_rate=audio["sampling_rate"]).input_values[0]
-        batch["input_length"] = len(batch["input_values"])
+        #batch["input_length"] = len(batch["input_values"])
         
         with processor.as_target_processor():
             batch["labels"] = processor(batch["sentence"]).input_ids
