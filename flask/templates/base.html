@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>  
+        <title>AI야어여</title>
+        <link rel="stylesheet" href="../static/css/base.css">
+    </head>
+    <body bgcolor=E0F6FB> 
+        <form method="POST">
+            <div class="language_select">
+                <label class="btn-language">
+                    {%if lang == 'kor' %}
+                        <input type="radio" name='language' value="kor" onclick="getLanguage(event)" checked>
+                    {% else %}
+                        <input type="radio" name='language' value="kor" onclick="getLanguage(event)">
+                    {% endif %}
+                    <span>한국어</span> 
+                </label>
+
+                <label class="btn-language">
+                    {%if lang == 'eng' %}
+                        <input type="radio" name='language' value="eng" onclick="getLanguage(event)" checked>
+                    {% else %}
+                        <input type="radio" name='language' value="eng" onclick="getLanguage(event)">
+                    {% endif %}
+                    <span>English</span> 
+                </label>
+
+                <label class="btn-language">
+                    {%if lang == 'chn' %}
+                        <input type="radio" name='language' value="chn" onclick="getLanguage(event)" checked>
+                    {% else %}
+                        <input type="radio" name='language' value="chn" onclick="getLanguage(event)">
+                    {% endif %}
+                    <span>中文</span> 
+                </label>
+
+                <label class="btn-language">
+                    {%if lang == 'jpn' %}
+                        <input type="radio" name='language' value="jpn" onclick="getLanguage(event)" checked>
+                    {% else %}
+                        <input type="radio" name='language' value="jpn" onclick="getLanguage(event)">
+                    {% endif %}
+                    <span>日本語</span> 
+                </label> 
+
+                <label class="btn-language">
+                    {%if lang == 'tai' %}
+                        <input type="radio" name='language' value="tai" onclick="getLanguage(event)" checked>
+                    {% else %}
+                        <input type="radio" name='language' value="tai" onclick="getLanguage(event)">
+                    {% endif %}
+                    <span>ภาษาไทย</span> 
+                </label>
+
+                <label class="btn-language">
+                    {%if lang == 'viet' %}
+                        <input type="radio" name='language' value="viet" onclick="getLanguage(event)" checked>
+                    {% else %}
+                        <input type="radio" name='language' value="viet" onclick="getLanguage(event)">
+                    {% endif %}
+                    <span>Tiếng Việt</span> 
+                </label>
+            </div>
+            <input type="submit" id = 'language_change', value="" style="display: none;"> 
+        </form>
+        {% block content %}
+        {% endblock %}
+        
+        <div class="user_info">
+            {% if user != 'not_user' %}
+                <img src="https://image.webtoonguide.com/py_c/5d/3d/0458152722a65a53378d2dd9a9e2" style="display: block; margin: 0 auto; margin-top: 5px; border-radius: 50%;" width="80" height="80" alt="프로필 사진">
+                 <p>{{ user }}</p>
+            {% else %}
+                <form method="POST">
+                    <label style = "margin-left: 10px; font-size: 12px;">ID<br><input type="text" name="ID" size="10" maxlength="10" style = "margin-left: 10px; height: 11px; font-size: 10px"></label><br>
+                    <label style = "margin-left: 10px; font-size: 12px;">PW<br><input type="password" name="PW" size="10" maxlength="10" style = "margin-left: 10px; height: 11px; font-size: 10px;"></label>
+                    <input type="submit" id = 'login', value="로그인">
+                </form>
+            {% endif %}
+        </div>
+        <script src="../static/js/base.js"></script>
+    </body>
+</html>
