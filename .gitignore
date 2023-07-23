@@ -17,3 +17,5 @@ AI_HUB
 .ipynb_checkpoints
 *.json
 requirements.txt
+*.csv
+*.wav
