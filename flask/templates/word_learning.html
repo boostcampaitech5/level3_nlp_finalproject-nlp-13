@@ -16,7 +16,17 @@
         <audio controls style="height: 10%; width: 45%; padding-left: 20%;">재생</audio>
         <p id="user_audio" hidden>{{user_audio}}</p>
 
-        <div style="padding-top: 3%; padding-left: 5%; height: 15%; width: 85%; text-align: center; font-size: 1.5vw; font-weight: 900;">{{user_pronounce}}</div>
+        <div style="padding-top: 3%; padding-left: 5%; height: 15%; width: 85%; text-align: center; font-size: 1.5vw; font-weight: 900;">
+            <span
+            {% for idx in user_pronounce %}
+                {% if user_pronounce[loop.index-1] != pronounce[loop.index-1] %}
+                    ><span style="color: red;">{{user_pronounce[loop.index-1]}}</span
+                {% else %}
+                    ><span>{{user_pronounce[loop.index-1]}}</span
+                {% endif %}
+            {% endfor %}
+            >
+        </div>
     </div>
 </div>
 <script src="../static/js/word_learning.js"></script>
