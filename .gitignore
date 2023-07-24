@@ -33,3 +33,4 @@ data/
 nohup.out
 .dotnet/
 tmp/
+test/
