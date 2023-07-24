@@ -1,32 +1,23 @@
-from transformers import AutoConfig, AutoTokenizer, AutoFeatureExtractor, Wav2Vec2CTCTokenizer, Wav2Vec2Processor, AutoModelForCTC, TrainingArguments, Trainer
+from transformers import AutoFeatureExtractor, Wav2Vec2CTCTokenizer, Wav2Vec2Processor, Wav2Vec2ForCTC, TrainingArguments, Trainer
 import numpy as np
 from datacollator import DataCollatorCTCWithPadding
 from dataset import get_dataset
 import nlptutti as metrics
+import torch
+import os
+import json
+from torch.nn.modules.linear import Linear
 
-#model_checkpoint = "kresnik/wav2vec2-large-xlsr-korean" 
+model_checkpoint = "kresnik/wav2vec2-large-xlsr-korean"
 
-model_checkpoint = "./save_model/"
+# 나눠서 모델을 fine-tuning할 때에는 아래 코드로 save_model에 저장된 걸 불러옴
+# model_checkpoint = "./save_model/"
 
-config = AutoConfig.from_pretrained(model_checkpoint)
-
-tokenizer_type = config.model_type if config.tokenizer_class is None else None
-config = config if config.tokenizer_class is not None else None
-
-#tokenizer = Wav2Vec2CTCTokenizer("vocab.json", unk_token="[UNK]", pad_token="[PAD]", word_delimiter_token="|")
-
-tokenizer = AutoTokenizer.from_pretrained(
-  model_checkpoint, #"./"
-  config=config,
-  tokenizer_type=tokenizer_type,
-  unk_token="[UNK]",
-  pad_token="[PAD]",
-  word_delimiter_token="|",
-)
-
+# vocab adaptation 한 걸로 학습시키려면 tokenizer를 아래 코드로 사용하세요
+tokenizer = Wav2Vec2CTCTokenizer("vocab.json", unk_token="[UNK]", pad_token="[PAD]", word_delimiter_token="|")
 feature_extractor = AutoFeatureExtractor.from_pretrained(model_checkpoint)
-
 processor = Wav2Vec2Processor(feature_extractor=feature_extractor, tokenizer=tokenizer)
+vocab_size = len(processor.tokenizer)
 
 train_dataset, test_dataset = get_dataset(processor)
 
@@ -58,12 +49,19 @@ def compute_metrics(pred):
     
     return {"wer": wer_metric, "cer": cer_metric}
 
-from transformers import Wav2Vec2ForCTC
+model =  Wav2Vec2ForCTC.from_pretrained(model_checkpoint)
+model.config.vocab_size = vocab_size
+model.config.pad_token_id = processor.tokenizer.pad_token_id
+model.lm_head = Linear(in_features=1024, out_features=vocab_size, bias=True)
 
-model =  Wav2Vec2ForCTC.from_pretrained(model_checkpoint) #vocab_size=len(processor.tokenizer)
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model.to(device)
 
 if hasattr(model, "freeze_feature_extractor"):
   model.freeze_feature_extractor()
+
+if hasattr(model, "gradient_checkpointing_enable"):
+  model.gradient_checkpointing_enable()
 
 training_args = TrainingArguments(
   './',
@@ -81,7 +79,7 @@ training_args = TrainingArguments(
   warmup_steps=500,
   save_total_limit=2,
   push_to_hub=False,
-  dataloader_pin_memory=False
+  dataloader_pin_memory=False,
 )
 
 trainer = Trainer(

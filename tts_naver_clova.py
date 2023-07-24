@@ -2,7 +2,7 @@ import os
 import sys
 import urllib.request
 from naver_cloud_key import client_id, client_secret
-
+import streamlit as st
 
 def get_sound_with_naver_clova(text: str, 
                                speaker: str = 'nara', 
@@ -36,10 +36,30 @@ def get_sound_with_naver_clova(text: str,
         print("TTS mp3 생성")
         response_body = response.read()
         ''' 로컬에 저장해서 mp3/wmv 파일로 듣고 싶을 때 '''
-        # path = '/tts_test.mp3'        
-        # with open(path, 'wb') as f:
-        #     f.write(response_body)
-
-        return response_body
+        path = './tts_test.mp3'        
+        with open(path, 'wb') as f:
+            f.write(response_body)
+        audio_file = open(path, 'rb')
+        audio_bytes = audio_file.read()
+        st.audio(audio_bytes, format='audio/ogg')
+        #return response_body
+        #return path
     else:
         print("Error Code:" + rescode)
+
+def get_sound(text: str, 
+                               speaker: str = 'nara', 
+                               volume: int = 0, 
+                               speed: int = 0, 
+                               pitch: int = 0, 
+                               format: str ='mp3',
+                               client_id: str = client_id,
+                               client_secret: str = client_secret
+                               ) -> bytes:
+    path = './tts_test.mp3'   
+    audio_file = open(path, 'rb')
+    audio_bytes = audio_file.read()
+    st.audio(audio_bytes, format='audio/ogg')
+
+if __name__=="__main__":
+    get_sound_with_naver_clova('오늘은 날씨가 맑다')
