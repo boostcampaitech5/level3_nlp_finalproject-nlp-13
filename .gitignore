@@ -32,3 +32,4 @@ data/
 .bash_history
 nohup.out
 .dotnet/
+test/
