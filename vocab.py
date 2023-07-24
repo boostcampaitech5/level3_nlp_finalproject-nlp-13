@@ -1,7 +1,7 @@
 from transformers import AutoFeatureExtractor, AutoTokenizer, Wav2Vec2CTCTokenizer, Wav2Vec2Processor, Wav2Vec2ForCTC, TrainingArguments, Trainer
 import numpy as np
 from train.datacollator import DataCollatorCTCWithPadding
-from dataset import get_dataset
+from train.dataset import get_dataset
 import nlptutti as metrics
 import torch
 import os
@@ -11,13 +11,13 @@ import wandb
 
 user = 'PJY'
 model_name = "krensik_noinit"
-num = "3"
+num = "4"
 data = f"data/label{num}.json"
 name = f"{user}_{num}_{model_name}"
 wandb.init(project="huggingface", name=name)
 
 # 나눠서 모델을 fine-tuning할 때에는 아래 코드로 save_model에 저장된 걸 불러옴
-model_checkpoint = "./save_model/PJY_2_krensik_noinit"
+model_checkpoint = "./save_model/PJY_3_krensik_noinit"
 model_dir = f'./save_model/{name}/'
 
 # vocab adaptation 한 걸로 학습시키려면 tokenizer를 아래 코드로 사용하세요
