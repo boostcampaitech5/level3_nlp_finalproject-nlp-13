@@ -3,7 +3,7 @@ import soundfile as sf
 import torch
 import pandas as pd
 from tqdm.auto import tqdm
-import nlptutti as metrics
+from sklearn.model_selection import train_test_split
 
 def compute_metrics(pred: list, answer: list) -> 'dict':
     '''
@@ -83,10 +83,11 @@ def infer_output_with_metric(data, path, model):
 
   '''
   data = pd.read_csv(data)
+  _, data = train_test_split(data, test_size=0.2, shuffle=False, random_state=42)
   file_path = data['path'].to_list()
   for i in range(len(file_path)):
     file_path[i] = path + file_path[i]
-  answer = data['sentence']
+  answer = data['sentence'].to_list()
 
   model, processor = load_model(model)
   
@@ -95,12 +96,13 @@ def infer_output_with_metric(data, path, model):
     output.append(inference(audio, model, processor))
 
   print(output)
-  print(compute_metrics(output, answer))
+  
 
   output = pd.DataFrame({'text':output})
   # output = pd.DataFrame({'text':output, 'answer': file_path})
   output.to_csv("output.csv", index=False)
   print("SUCCESSFULLY SAVED!")
+  print(compute_metrics(output, answer))
 
 
 if __name__ == "__main__":
