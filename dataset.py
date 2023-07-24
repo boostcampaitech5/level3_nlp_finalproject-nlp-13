@@ -1,19 +1,30 @@
-from datasets import load_dataset, Audio, Dataset
+from datasets import Audio, Dataset
 from sklearn.model_selection import train_test_split
 import json
-import torch
+import pandas as pd
 
 def get_dataset(processor, data):
-    with open(data, "r", encoding="utf8") as f:
-        f = json.load(f)
-    
-    trainx, testx, trainy, testy = train_test_split(f['audio'], f['sentence'], test_size=0.1, shuffle=False, random_state=42)
-    
-    audio_dataset = Dataset.from_dict({"audio": trainx, "sentence" : trainy})
-    audio_dataset_test = Dataset.from_dict({"audio": testx, "sentence": testy})
+    if "csv" in data:
+        f = pd.read_csv(data)
+        
+        train, test = train_test_split(f, test_size=0.2, shuffle=False, random_state=42)
+        
+        audio_dataset = Dataset.from_pandas(train).remove_columns(['__index_level_0__'])
+        audio_dataset_test = Dataset.from_pandas(test).remove_columns(['__index_level_0__'])
+
+    if "json" in data:
+        with open(data, 'r', encoding='utf-8') as f:
+            f = json.load(f)
+
+        dataset = Dataset.from_dict({'audio': f['audio'], 'sentence': f['sentence']}).train_test_split(test_size=0.2, shuffle=False, seed=42)
+        audio_dataset = dataset['train']
+        audio_dataset_test = dataset['test']
+
 
     dataset = audio_dataset.cast_column("audio", Audio(sampling_rate=16000))
     dataset_test = audio_dataset_test.cast_column("audio", Audio(sampling_rate=16000))
+
+    print(dataset)
     
     def prepare_dataset(batch):
         audio = batch["audio"]
@@ -23,7 +34,10 @@ def get_dataset(processor, data):
         #batch["input_length"] = len(batch["input_values"])
         
         with processor.as_target_processor():
-            batch["labels"] = processor(batch["sentence"]).input_ids
+            try:
+                batch["labels"] = processor(batch["sentence"]).input_ids
+            except:
+                print(batch["sentence"])
         return batch
 
     dataset = dataset.map(prepare_dataset, remove_columns = dataset.column_names)

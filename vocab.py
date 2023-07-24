@@ -1,4 +1,4 @@
-from transformers import AutoFeatureExtractor, Wav2Vec2CTCTokenizer, Wav2Vec2Processor, Wav2Vec2ForCTC, TrainingArguments, Trainer
+from transformers import AutoFeatureExtractor, AutoTokenizer, Wav2Vec2CTCTokenizer, Wav2Vec2Processor, Wav2Vec2ForCTC, TrainingArguments, Trainer
 import numpy as np
 from datacollator import DataCollatorCTCWithPadding
 from dataset import get_dataset
@@ -10,18 +10,19 @@ from torch.nn.modules.linear import Linear
 import wandb
 
 user = 'PJY'
-model_name = "kresnik/wav2vec2-large-xlsr-korean"
-num = "4"
+model_name = "krensik_noinit"
+num = "2"
 data = f"data/label{num}.json"
 name = f"{user}_{num}_{model_name}"
 wandb.init(project="huggingface", name=name)
 
 # 나눠서 모델을 fine-tuning할 때에는 아래 코드로 save_model에 저장된 걸 불러옴
-model_checkpoint = "./save_model/PJY_3_kresnik/wav2vec2-large-xlsr-korean"
+model_checkpoint = "./save_model/PJY_1_kresnik/wav2vec2-large-xlsr-korean"
 model_dir = f'./save_model/{name}/'
 
 # vocab adaptation 한 걸로 학습시키려면 tokenizer를 아래 코드로 사용하세요
-tokenizer = Wav2Vec2CTCTokenizer("vocab.json", unk_token="[UNK]", pad_token="[PAD]", word_delimiter_token="|")
+# tokenizer = Wav2Vec2CTCTokenizer("vocab.json", unk_token="[UNK]", pad_token="[PAD]", word_delimiter_token="|")
+tokenizer = AutoTokenizer.from_pretrained(model_checkpoint, unk_token="[UNK]", pad_token="[PAD]", word_delimiter_token="|")
 feature_extractor = AutoFeatureExtractor.from_pretrained(model_checkpoint)
 processor = Wav2Vec2Processor(feature_extractor=feature_extractor, tokenizer=tokenizer)
 vocab_size = len(processor.tokenizer)
@@ -57,9 +58,9 @@ def compute_metrics(pred):
     return {"wer": wer_metric, "cer": cer_metric}
 
 model =  Wav2Vec2ForCTC.from_pretrained(model_checkpoint)
-model.config.vocab_size = vocab_size
+'''model.config.vocab_size = vocab_size
 model.config.pad_token_id = processor.tokenizer.pad_token_id
-model.lm_head = Linear(in_features=1024, out_features=vocab_size, bias=True)
+model.lm_head = Linear(in_features=1024, out_features=vocab_size, bias=True)'''
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
