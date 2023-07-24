@@ -4,21 +4,19 @@ from datacollator import DataCollatorCTCWithPadding
 from dataset import get_dataset
 import nlptutti as metrics
 
-model_checkpoint = "kresnik/wav2vec2-large-xlsr-korean"
+#model_checkpoint = "kresnik/wav2vec2-large-xlsr-korean" 
 
-# 나눠서 모델을 fine-tuning할 때에는 아래 코드로 save_model에 저장된 걸 불러옴
-# model_checkpoint = "./save_model/"
+model_checkpoint = "./save_model/"
 
 config = AutoConfig.from_pretrained(model_checkpoint)
 
 tokenizer_type = config.model_type if config.tokenizer_class is None else None
 config = config if config.tokenizer_class is not None else None
 
-# vocab adaptation 한 걸로 학습시키려면 tokenizer를 아래 코드로 사용하세요
-# tokenizer = Wav2Vec2CTCTokenizer("vocab.json", unk_token="[UNK]", pad_token="[PAD]", word_delimiter_token="|")
+#tokenizer = Wav2Vec2CTCTokenizer("vocab.json", unk_token="[UNK]", pad_token="[PAD]", word_delimiter_token="|")
 
 tokenizer = AutoTokenizer.from_pretrained(
-  model_checkpoint,
+  model_checkpoint, #"./"
   config=config,
   tokenizer_type=tokenizer_type,
   unk_token="[UNK]",
@@ -62,7 +60,7 @@ def compute_metrics(pred):
 
 from transformers import Wav2Vec2ForCTC
 
-model =  Wav2Vec2ForCTC.from_pretrained(model_checkpoint)
+model =  Wav2Vec2ForCTC.from_pretrained(model_checkpoint) #vocab_size=len(processor.tokenizer)
 
 if hasattr(model, "freeze_feature_extractor"):
   model.freeze_feature_extractor()
@@ -83,6 +81,7 @@ training_args = TrainingArguments(
   warmup_steps=500,
   save_total_limit=2,
   push_to_hub=False,
+  dataloader_pin_memory=False
 )
 
 trainer = Trainer(
