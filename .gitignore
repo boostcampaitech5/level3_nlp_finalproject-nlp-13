@@ -6,3 +6,4 @@ audio/
 cache/
 *.pyc
 vocab.json
+data/
