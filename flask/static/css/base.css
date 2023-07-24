@@ -8,11 +8,14 @@
     border-radius: 20px;
     border-width: 0.3px;
     background-color: #FFFFFF;
-    font-size: 12px;
+    font-size: 1.2vw;
     font-weight: 600;
-    height: 27px;
-    padding-left: 8.3px;
-    padding-right: 8.3px;
+    height: 100px;
+    width: 100%;
+    padding-top: 0.2%;
+    padding-bottom: 0.2%;
+    padding-left: 2%;
+    padding-right: 2%;
 }
 
 .btn-language input[type='radio']:checked + span{
@@ -20,11 +23,44 @@
     color: #FFFFFF;
 }
 
-
 .language_select{
-    margin-top: 80px;
-    margin-left: 100px;
+    margin-top: 8%;
+    margin-left: 10%;
     position: fixed;
-    width: 400px;
+    width: 50%;
 }
 
+.user_info{
+    background-color: #FFFFFF;
+    border: 1px solid;
+    border-color: #FFFFFF;
+    border-radius: 10%;
+    margin-top: 8%;
+    margin-left: 50%;
+    position: fixed;
+    width: 15%;
+    height: 24%;
+    text-align: center;
+}
+
+.login-form-field {
+    border: none;
+    border-bottom: 1px solid #3a3a3a;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    outline: none;
+    padding: 0px 0px 5px 5px;
+    width: 60%;
+}
+
+.login-form-submit {
+    width: 63%;
+    padding: 7px;
+    border: none;
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-weight: 400;
+    background-color: #00CFFD;
+    cursor: pointer;
+    outline: none;
+}
