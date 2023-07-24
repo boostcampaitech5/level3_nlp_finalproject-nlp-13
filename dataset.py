@@ -21,7 +21,7 @@ def get_dataset(processor, data):
         audio_dataset_test = dataset['test']
 
 
-    dataset = audio_dataset.cast_column("audio", Audio(sampling_rate=16000))
+    dataset_train = audio_dataset.cast_column("audio", Audio(sampling_rate=16000))
     dataset_test = audio_dataset_test.cast_column("audio", Audio(sampling_rate=16000))
 
     print(dataset)
