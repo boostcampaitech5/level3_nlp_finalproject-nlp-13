@@ -32,7 +32,5 @@ data/
 .bash_history
 nohup.out
 .dotnet/
-*.json
-data/
-*.out
+tmp/
 test/
