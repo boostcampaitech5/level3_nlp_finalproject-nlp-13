@@ -1,8 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import os
-
+from functions import thread, todays_word
+    
 app = Flask(__name__)
 app.secret_key = b'817089'
+
+thread()
 
 @app.route('/', methods=['GET','POST'])
 def home():
@@ -15,7 +18,7 @@ def home():
     if 'user_pronounce' in session:
         session.pop('user_pronounce')
 
-    return render_template("main.html", lang=language, word1='이브', word2='프시케', word3='푸른 수염의 아내', user=user)
+    return render_template("main.html", lang=language, word1 = todays_word[0], word2 = todays_word[1], word3 = todays_word[2], user=user)
 
 @app.route('/language_select', methods=['GET','POST'])
 def language_select():
@@ -39,14 +42,14 @@ def sign_out():
         session.pop('user')
     return redirect(url_for(session['now']))
 
-@app.route('/word_learning', methods=['GET','POST'])
-def word_learning():
+@app.route('/word_learning_todays_word', methods=['GET','POST'])
+def word_learning_todays_word():
     session['now'] = 'word_learning'
     user = session['user'] if 'user' in session else ''
     language = session['language'] if 'language' in session else 'kor'
     
     if request.method == 'POST':
-        session['word'] = request.form['word']
+        session['word'] = todays_word[int(request.form['num'])]
 
     word = session['word']
     #pronounce = 단어의 발음기호
@@ -56,7 +59,7 @@ def word_learning():
     user_audio = session['user_audio'] if 'user_audio' in session else ''
     user_pronounce = session['user_pronounce'] if 'user_pronounce' in session else ''
 
-    return render_template("word_learning.html", user=user, lang=language, word='단어', pronounce='다너',explanation='단어가 단어지 뭐임', audio='../static/src/audio/0310.mp3', user_audio=user_audio, user_pronounce=user_pronounce)
+    return render_template("word_learning.html", user=user, lang=language, word=word, pronounce='다너',explanation='단어가 단어지 뭐임', audio='../static/src/audio/0310.mp3', user_audio=user_audio, user_pronounce=user_pronounce, add=['square','저녁하늘','너도'])
 
 @app.route('/get_user_pronounce', methods=['GET', 'POST'])
 def get_user_pronounce():

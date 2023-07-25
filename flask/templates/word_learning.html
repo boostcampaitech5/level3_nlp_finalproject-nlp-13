@@ -26,7 +26,7 @@
             <p id="user_audio" hidden>{{user_audio}}</p>
         </div>
 
-        <div style="padding-top: 3%; padding-left: 5%; height: 15%; width: 85%; text-align: center; font-size: 1.5vw; font-weight: 900;">
+        <div style="padding-top: 3%; padding-left: 5%; height: 15%; width: 85%; text-align: center; font-size: 1.5vw; font-weight: 900;" name="유저 발음 비교">
             <span
             {% for idx in user_pronounce %}
                 {% if user_pronounce[loop.index-1] != pronounce[loop.index-1] %}
@@ -36,6 +36,12 @@
                 {% endif %}
             {% endfor %}
             >
+        </div>
+
+        <div name="추가 단어">
+            <div>{{add[0]}}</div>
+            <div>{{add[1]}}</div>
+            <div>{{add[2]}}</div>
         </div>
     </div>
 </div>
