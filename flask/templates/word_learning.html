@@ -4,17 +4,27 @@
 
 <div>
     <div class="todays_word">
-        <p style="margin-top: 5%; margin-left: 7.5%; font-size: 1.54vw; font-weight: 900;">오늘의 단어</p>
-        <div style="border-radius: 10px; background-color: #00CFFD; height: 30%; width: 85%; margin-left: 7.5%;">
-            <span style="color: #FFFFFF; font-size: 1.54vw; padding-left: 15px;">{{word}} [{{pronounce}}]</span>
-            <button type="button" onclick="play()" style="background-color: rgba(255,255,255,0); border-style: hidden; height: 28px; width: 28px; padding-top: 15px;"><img src="../static/src/img/play.png" alt="발음 듣기" style="background-color: rgba(255, 255, 255, 0); height: 28px; width: 28px;"></button><br>
-            <p id="audio" hidden>{{audio}}</p>
-            <span style="padding-top: 1%; padding-left: 15px; font-size: 1.2vw; position: absolute;">{{explanation}}</span>
+        <p style="font-weight: 750;">오늘의 단어</p>
+        <div class="word_card">
+            <div id="word">
+                <span>{{word}} [{{pronounce}}]</span>
+                <button id="pronounce" type="button" onclick="play()">
+                    <img id="pronounce_button" src="../static/src/img/play.png" alt="발음 듣기">
+                </button>
+            </div>
+            <div id="explanation">
+                <p id="audio" hidden>{{audio}}</p>
+                <div>{{explanation}}</div>
+            </div>        
         </div>
-
-        <button id="record" onclick="record()" style="height: 10%; width:20%; background-color: #FFFFFF; border: #FFFFFF; padding-top: 5%; padding-left: 15%;"><img id="record_button" src="../static/src/img/record.png"></button>
-        <audio controls style="height: 10%; width: 45%; padding-left: 20%;">재생</audio>
-        <p id="user_audio" hidden>{{user_audio}}</p>
+        
+        <div id="recording">
+            <button id="record" onclick="record()">
+                <img id="record_button" src="../static/src/img/record.png">
+            </button>
+            <audio id="play" controls>재생</audio>
+            <p id="user_audio" hidden>{{user_audio}}</p>
+        </div>
 
         <div style="padding-top: 3%; padding-left: 5%; height: 15%; width: 85%; text-align: center; font-size: 1.5vw; font-weight: 900;">
             <span
