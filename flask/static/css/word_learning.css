@@ -171,5 +171,29 @@ audio::-webkit-media-controls-panel {
         margin: auto;
         width: fit-content;
     }
+} 
 
+.add_word {
+    background-image: linear-gradient(to bottom right, #78E7FF, #00CFFD);
+    border-radius: 40px;
+    color: #FFFFFF;
+    float: left;
+    width: 18%;
+    margin-left: 2%;
+    padding: 2%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    box-shadow: inset;
+    font-weight: 500;
+    font-size: 1vw;
+    position: relative;
+}
+
+.move_button {
+    width: 4%;
+    height: 4%;
+    display: flex;
+    position: relative;
 }
