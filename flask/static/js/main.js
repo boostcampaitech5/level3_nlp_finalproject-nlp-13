@@ -1,17 +1,12 @@
-var word1 = document.getElementById("word_box1").innerText
-var word2 = document.getElementById("word_box2").innerText
-var word3 = document.getElementById("word_box3").innerText
-
-
 function word1_click(){
     var f = document.createElement("form");
     f.setAttribute("method","post");
-    f.setAttribute("action","word_learning");
+    f.setAttribute("action","word_learning_todays_word");
     
     var hiddenField = document.createElement('input');
     hiddenField.setAttribute('type','hidden');
-    hiddenField.setAttribute('name','word');
-    hiddenField.setAttribute('value',word1);
+    hiddenField.setAttribute('name','num');
+    hiddenField.setAttribute('value',0);
     f.appendChild(hiddenField);
 
     document.body.appendChild(f);
@@ -21,12 +16,12 @@ function word1_click(){
 function word2_click(){
     var f = document.createElement("form");
     f.setAttribute("method","post");
-    f.setAttribute("action","word_learning");
+    f.setAttribute("action","word_learning_todays_word");
     
     var hiddenField = document.createElement('input');
     hiddenField.setAttribute('type','hidden');
-    hiddenField.setAttribute('name','word');
-    hiddenField.setAttribute('value',word2);
+    hiddenField.setAttribute('name','num');
+    hiddenField.setAttribute('value',1);
     f.appendChild(hiddenField);
 
     document.body.appendChild(f);
@@ -36,12 +31,12 @@ function word2_click(){
 function word3_click(){
     var f = document.createElement("form");
     f.setAttribute("method","post");
-    f.setAttribute("action","word_learning");
+    f.setAttribute("action","word_learning_todays_word");
     
     var hiddenField = document.createElement('input');
     hiddenField.setAttribute('type','hidden');
-    hiddenField.setAttribute('name','word');
-    hiddenField.setAttribute('value',word3);
+    hiddenField.setAttribute('name','num');
+    hiddenField.setAttribute('value',2);
     f.appendChild(hiddenField);
 
     document.body.appendChild(f);
