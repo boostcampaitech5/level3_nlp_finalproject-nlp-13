@@ -1,42 +1,30 @@
-from datasets import load_dataset, Audio, Dataset
+from datasets import Audio, Dataset
 from sklearn.model_selection import train_test_split
 import json
-import re
+import pandas as pd
 
-def get_dataset(processor):
+def get_dataset(processor, data):
+    if "csv" in data:
+        f = pd.read_csv(data)
+        
+        train, test = train_test_split(f, test_size=0.2, shuffle=False, random_state=42)
+        
+        audio_dataset = Dataset.from_pandas(train).remove_columns(['__index_level_0__'])
+        audio_dataset_test = Dataset.from_pandas(test).remove_columns(['__index_level_0__'])
 
-    def remove_special_characters(batch):
-        batch["sentence"] = re.sub(r'\([^)]*\)', lambda x: re.sub(r'[^가-힣\s]', '', x.group()), batch["sentence"]).rstrip() + " "
-        return batch
+    if "json" in data:
+        with open(data, 'r', encoding='utf-8') as f:
+            f = json.load(f)
 
-    def load_json_file(file_path):
-        with open(file_path, "r", encoding='utf-8') as file:
-            data = json.load(file)
-        return data
+        dataset = Dataset.from_dict({'audio': f['audio'], 'sentence': f['sentence']}).train_test_split(test_size=0.2, shuffle=False, seed=42)
+        audio_dataset = dataset['train']
+        audio_dataset_test = dataset['test']
 
-    json_file_path = "./data.json"
-    dict_dataset = load_json_file(json_file_path)
-    #print(dict_dataset)
-    split_idx = int(len(dict_dataset["audio"]) * 0.8)
-    dict_dataset_train = {
-        "audio": dict_dataset["audio"][:split_idx],
-        "sentence": dict_dataset["sentence"][:split_idx]
-    }
-    dict_dataset_test = {
-        "audio": dict_dataset["audio"][split_idx:],
-        "sentence": dict_dataset["sentence"][split_idx:]
-    }
-    
-    audio_dataset_train = Dataset.from_dict(dict_dataset_train)
-    audio_dataset_test = Dataset.from_dict(dict_dataset_test)
-    # audio_dataset = Dataset.from_dict({"audio": ['/opt/ml/level3_nlp_finalproject-nlp-13/audio/1.wav', '/opt/ml/level3_nlp_finalproject-nlp-13/audio/2.wav'], "sentence" : ['요즘은 무선 청소기 안 쓰는 사람이 없더라', '현대인의 필수품이 됐구나']})
-    # audio_dataset_test = Dataset.from_dict({"audio": ['/opt/ml/level3_nlp_finalproject-nlp-13/audio/1.wav', '/opt/ml/level3_nlp_finalproject-nlp-13/audio/3.wav'], "sentence": ['요즘은 무선 청소기 안 쓰는 사람이 없더라', '정말 나만 모른거야']})
 
-    audio_dataset_train = audio_dataset_train.map(remove_special_characters)
-    audio_dataset_test = audio_dataset_test.map(remove_special_characters)
-    
-    dataset_train = audio_dataset_train.cast_column("audio", Audio(sampling_rate=16000))
+    dataset_train = audio_dataset.cast_column("audio", Audio(sampling_rate=16000))
     dataset_test = audio_dataset_test.cast_column("audio", Audio(sampling_rate=16000))
+
+    print(dataset)
     
     def prepare_dataset(batch):
         audio = batch["audio"]
@@ -46,7 +34,10 @@ def get_dataset(processor):
         batch["input_length"] = len(batch["input_values"])
         
         with processor.as_target_processor():
-            batch["labels"] = processor(batch["sentence"]).input_ids
+            try:
+                batch["labels"] = processor(batch["sentence"]).input_ids
+            except:
+                print(batch["sentence"])
         return batch
 
     dataset_train = dataset_train.map(prepare_dataset, remove_columns = dataset_train.column_names)
