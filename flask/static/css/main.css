@@ -1,33 +1,70 @@
+p {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    font-size: 3.2vw;
+}
+
 .todays_word{
+    margin: 0;
+    float: left;
     background-color: #FFFFFF;
     border: 1px solid;
     border-color: #FFFFFF;
-    border-radius: 3%;
-    height: 50%;
-    margin-top: 10.5%;
-    margin-left: 10%;
-    position: fixed;
-    width:38%;
+    border-radius: 15px;
+    height: 100%;
+    width: 90%;
+    padding: 30px;
+    padding-top: 0;
+    padding-bottom: 50px;
+
 }
 
+.todays_word:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
 .word_box{
-    background-color: #00CFFD;
-    border-radius: 10%;
+    background-image: linear-gradient(to bottom right, #78E7FF, #00CFFD);
+    border-radius: 20px;
     color: #FFFFFF;
-    width: 28%;
+    float: left;
+    width: 27%;
+    margin-left: 5%;
     display: flex;
     align-items: center;
+    text-align: center;
     justify-content: center;
     box-shadow: inset;
     font-weight: 500;
     font-size: 1.8vw;
+    position: relative;
 }
 
-.word_box::after {
+.word_box:hover {
+    cursor: pointer;
+}
+
+.word_box:after {
     display: block;
     content: "";
     padding-bottom: 100%;
 }
+
+.word {
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding: 5%;
+    font-size: 1em;
+    
+  }
 
 .content {
     position: absolute;
@@ -38,3 +75,29 @@
     object-fit: cover;
     border-radius: 50%;
   }
+
+  @media (max-width: 600px) {
+    .todays_word{
+      width: 100%;
+      padding: 0;
+      text-align: center;
+    }
+    p{
+        width: 100%;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        margin-left: 0;
+        font-size: 2em;
+    }
+    .word_box {
+        display:block;
+        margin-left: 15%;
+        margin-right: 15%;
+        margin-bottom: 10%;
+        width: 70%;
+    }
+    .word {
+        font-size: 2.5vh;
+    }
+
+}

@@ -3,84 +3,91 @@
     <head>  
         <title>AI야어여</title>
         <link rel="stylesheet" href="../static/css/base.css">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     </head>
     <body bgcolor=E0F6FB> 
-        <form method="POST" action = "language_select">
-            <div class="language_select">
-                <label class="btn-language">
-                    {%if lang == 'kor' %}
-                        <input type="radio" name='language' value="kor" onclick="getLanguage(event)" checked>
-                    {% else %}
-                        <input type="radio" name='language' value="kor" onclick="getLanguage(event)">
-                    {% endif %}
-                    <span>한국어</span> 
-                </label>
+        <div class="wrapper">
+            <form method="POST" action = "language_select">
+                <div class="column left">
+                    <div class="language_select">
+                        <label class="btn-language" id="kor">
+                            {%if lang == 'kor' %}
+                                <input type="radio" name='language' value="kor" onclick="getLanguage(event)" checked>
+                            {% else %}
+                                <input type="radio" name='language' value="kor" onclick="getLanguage(event)">
+                            {% endif %}
+                            <span>한국어</span> 
+                        </label>
 
-                <label class="btn-language">
-                    {%if lang == 'eng' %}
-                        <input type="radio" name='language' value="eng" onclick="getLanguage(event)" checked>
-                    {% else %}
-                        <input type="radio" name='language' value="eng" onclick="getLanguage(event)">
-                    {% endif %}
-                    <span>English</span> 
-                </label>
+                        <label class="btn-language" id="eng">
+                            {%if lang == 'eng' %}
+                                <input type="radio" name='language' value="eng" onclick="getLanguage(event)" checked>
+                            {% else %}
+                                <input type="radio" name='language' value="eng" onclick="getLanguage(event)">
+                            {% endif %}
+                            <span>English</span> 
+                        </label>
 
-                <label class="btn-language">
-                    {%if lang == 'chn' %}
-                        <input type="radio" name='language' value="chn" onclick="getLanguage(event)" checked>
-                    {% else %}
-                        <input type="radio" name='language' value="chn" onclick="getLanguage(event)">
-                    {% endif %}
-                    <span>中文</span> 
-                </label>
+                        <label class="btn-language" id="chn">
+                            {%if lang == 'chn' %}
+                                <input type="radio" name='language' value="chn" onclick="getLanguage(event)" checked>
+                            {% else %}
+                                <input type="radio" name='language' value="chn" onclick="getLanguage(event)">
+                            {% endif %}
+                            <span>中文</span> 
+                        </label>
 
-                <label class="btn-language">
-                    {%if lang == 'jpn' %}
-                        <input type="radio" name='language' value="jpn" onclick="getLanguage(event)" checked>
-                    {% else %}
-                        <input type="radio" name='language' value="jpn" onclick="getLanguage(event)">
-                    {% endif %}
-                    <span>日本語</span> 
-                </label> 
+                        <label class="btn-language" id="jpn">
+                            {%if lang == 'jpn' %}
+                                <input type="radio" name='language' value="jpn" onclick="getLanguage(event)" checked>
+                            {% else %}
+                                <input type="radio" name='language' value="jpn" onclick="getLanguage(event)">
+                            {% endif %}
+                            <span>日本語</span> 
+                        </label> 
 
-                <label class="btn-language">
-                    {%if lang == 'tai' %}
-                        <input type="radio" name='language' value="tai" onclick="getLanguage(event)" checked>
-                    {% else %}
-                        <input type="radio" name='language' value="tai" onclick="getLanguage(event)">
-                    {% endif %}
-                    <span>ภาษาไทย</span> 
-                </label>
+                        <label class="btn-language" id="tai">
+                            {%if lang == 'tai' %}
+                                <input type="radio" name='language' value="tai" onclick="getLanguage(event)" checked>
+                            {% else %}
+                                <input type="radio" name='language' value="tai" onclick="getLanguage(event)">
+                            {% endif %}
+                            <span>ภาษาไทย</span> 
+                        </label>
 
-                <label class="btn-language">
-                    {%if lang == 'viet' %}
-                        <input type="radio" name='language' value="viet" onclick="getLanguage(event)" checked>
+                        <label class="btn-language" id="vtn">
+                            {%if lang == 'viet' %}
+                                <input type="radio" name='language' value="viet" onclick="getLanguage(event)" checked>
+                            {% else %}
+                                <input type="radio" name='language' value="viet" onclick="getLanguage(event)">
+                            {% endif %}
+                            <span>Tiếng Việt</span> 
+                        </label>
+                    </div>
+                    <input type="submit" id = 'language_change', value="" style="display: none;"> 
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </form>
+            
+            <div class="column right">
+                <div class="user_info">
+                    {% if user != '' %}
+                        <form method="POST" action="sign_out">
+                            <img src="https://image.webtoonguide.com/py_c/5d/3d/0458152722a65a53378d2dd9a9e2" style="display: block; margin: 0 auto; margin-top: 10%; border-radius: 50%;" width="40%" height="40%" alt="프로필 사진">
+                            <span style="font-size: 1.4vw; font-weight: 600; color:black">{{ user }}</span><span style="font-size: 1.4vw; font-weight: 600; color: gray">님</span><br>
+                            <input style = "border-radius: 10px; border-style: hidden; background-color: #00CFFD; text-align: center; font-size: 1vw; margin-top: 1.5%; padding: 2% 5% 2% 5%;" type="submit" id = 'Sign out', value="Sign out">
+                        </form>
                     {% else %}
-                        <input type="radio" name='language' value="viet" onclick="getLanguage(event)">
+                        <form method="POST" action="sign_in">
+                            <h1 class="logo">AI야어여</h1>
+                            <input type="text" name="ID" maxlength="10" class="login-form-field" placeholder="Username"></label><br>
+                            <input type="password" name="PW" maxlength="10" class="login-form-field" placeholder="Password"></label><br>
+                            <input class="login-form-submit" type="submit" id = 'Sign in', value="Sign in">
+                        </form>
                     {% endif %}
-                    <span>Tiếng Việt</span> 
-                </label>
+                </div>
             </div>
-            <input type="submit" id = 'language_change', value="" style="display: none;"> 
-        </form>
-        {% block content %}
-        {% endblock %}
-        
-        <div class="user_info">
-            {% if user != '' %}
-                <form method="POST" action="sign_out">
-                    <img src="https://image.webtoonguide.com/py_c/5d/3d/0458152722a65a53378d2dd9a9e2" style="display: block; margin: 0 auto; margin-top: 10%; border-radius: 50%;" width="40%" height="40%" alt="프로필 사진">
-                    <span style="font-size: 1.4vw; font-weight: 600; color:black">{{ user }}</span><span style="font-size: 1.4vw; font-weight: 600; color: gray">님</span><br>
-                    <input style = "border-radius: 10px; border-style: hidden; background-color: #00CFFD; text-align: center; font-size: 1vw; margin-top: 1.5%; padding: 2% 5% 2% 5%;" type="submit" id = 'Sign out', value="Sign out">
-                </form>
-            {% else %}
-                <form method="POST" action="sign_in">
-                    <h1 class="logo">AI야어여</h1>
-                    <input type="text" name="ID" maxlength="10" class="login-form-field" placeholder="Username"></label><br>
-                    <input type="password" name="PW" maxlength="10" class="login-form-field" placeholder="Password"></label><br>
-                    <input class="login-form-submit" type="submit" id = 'Sign in', value="Sign in">
-                </form>
-            {% endif %}
         </div>
         <script src="../static/js/base.js"></script>
     </body>
