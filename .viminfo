@@ -22,14 +22,24 @@
 
 # Registers:
 "q	CHAR	0
-	wWQWWWW
-|3,0,26,0,1,0,1690205324,"wWQWWWW"
+	w
+|3,0,26,0,1,0,1690288144,"w"
 
 # File marks:
-'0  3  1  ~/.git/MERGE_MSG
-|4,48,3,1,1690205523,"~/.git/MERGE_MSG"
+'0  7  12  ~/.git/MERGE_MSG
+|4,48,7,12,1690288284,"~/.git/MERGE_MSG"
+'1  3  1  ~/.git/MERGE_MSG
+|4,49,3,1,1690205523,"~/.git/MERGE_MSG"
+'2  3  1  ~/.git/MERGE_MSG
+|4,50,3,1,1690205523,"~/.git/MERGE_MSG"
 
 # Jumplist (newest first):
+-'  7  12  ~/.git/MERGE_MSG
+|4,39,7,12,1690288284,"~/.git/MERGE_MSG"
+-'  1  0  ~/.git/MERGE_MSG
+|4,39,1,0,1690288131,"~/.git/MERGE_MSG"
+-'  3  1  ~/.git/MERGE_MSG
+|4,39,3,1,1690205523,"~/.git/MERGE_MSG"
 -'  3  1  ~/.git/MERGE_MSG
 |4,39,3,1,1690205523,"~/.git/MERGE_MSG"
 -'  1  0  ~/.git/MERGE_MSG
@@ -38,8 +48,8 @@
 # History of marks within files (newest to oldest):
 
 > ~/.git/MERGE_MSG
-	*	1690205523	0
-	"	3	1
+	*	1690288282	0
+	"	7	12
 	^	3	3
 	.	2	71
 	+	3	223
