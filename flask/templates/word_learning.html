@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
-{% block content %}
+{% block main %}
 <link rel="stylesheet" href="../static/css/word_learning.css">
 
 <div>
     <div class="todays_word">
-        <p style="font-weight: 750;">오늘의 단어</p>
+        {% if add_or_today == 'today' %}
+            <p style="font-weight: 750;">오늘의 단어</p>
+        {% else %}
+            <p style="font-weight: 750;">학습 추천 단어</p>
+        {% endif %}
+
         <div class="word_card">
             <div id="word">
                 <span>{{word}} [{{pronounce}}]</span>
@@ -19,7 +24,7 @@
         </div>
         
         <div id="recording">
-            <button id="record" onclick="record()">
+            <button id="record">
                 <img id="record_button" src="../static/src/img/record.png">
             </button>
             <audio id="play" controls>재생</audio>
@@ -38,10 +43,28 @@
             >
         </div>
 
-        <div name="추가 단어">
-            <div>{{add[0]}}</div>
-            <div>{{add[1]}}</div>
-            <div>{{add[2]}}</div>
+        <div name="단어 학습 페이지 하단 버튼">
+            {% if add_or_today == 'today' %} 
+                <form method="POST" action="go_prev_word">
+                    <input type="image" src="../static/src/img/prev.png" type="submit" class="move_button">
+                </form>
+            {% else %}
+                <form method="POST" action="go_prev_page">
+                    <input type="image" src="../static/src/img/prev.png" type="submit" class="move_button">
+                </form>
+            {% endif %}
+            <div name="추가 단어" style="padding-left: 20%;">
+                <div id='word1' onclick="word1_click()" class="add_word">{{add[0]}}</div>
+                <div id='word2' onclick="word2_click()" class="add_word">{{add[1]}}</div>
+                <div id='word3' onclick="word3_click()" class="add_word">{{add[2]}}</div>
+                <p id="add_or_today" hidden>{{add_or_today}}</p>
+            </div>
+            
+            {% if add_or_today == 'today' %} 
+                <form method="POST" action="go_next_word">
+                    <input type="image" src="../static/src/img/next.png" type="submit" class="move_button">
+                </form>
+            {% endif %}
         </div>
     </div>
 </div>
