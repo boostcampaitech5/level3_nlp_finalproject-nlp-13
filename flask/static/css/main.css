@@ -109,6 +109,7 @@ p {
     border-color: #FFFFFF;
     border-radius: 15px;
     height: 100%;
-    width: 100%;
-    text-align: center;
+    width: 90%;
+    padding: 30px;
+    padding-top: 0;
 }
