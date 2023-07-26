@@ -64,8 +64,8 @@
                             <span>Tiếng Việt</span> 
                         </label>
                         <input type="submit" id = 'language_change', value="" style="display: none;"> 
-                    </form>
-                </div>
+                    </div>
+                </form>
                 {% block main %}
                 {% endblock %}
             </div>
@@ -76,15 +76,15 @@
                     {% if user != '' %}
                         <form method="POST" action="sign_out">
                             <img src="https://image.webtoonguide.com/py_c/5d/3d/0458152722a65a53378d2dd9a9e2" style="display: block; margin: 0 auto; margin-top: 10%; border-radius: 50%;" width="40%" height="40%" alt="프로필 사진">
-                            <span style="font-size: 1.4vw; font-weight: 600; color:black">{{user}}</span><span style="font-size: 1.4vw; font-weight: 600; color: gray">님</span><br>
-                            <input style = "border-radius: 10px; border-style: hidden; background-color: #00CFFD; text-align: center; font-size: 1vw; margin-top: 1.5%; padding: 2% 5% 2% 5%;" type="submit" id = 'Sign out', value="Sign out">
+                            <div><span style="color:black">{{user}}</span><span style="color: gray">님</span></div>
+                            <input type="submit" id = 'Signout', value="Sign out">
                         </form>
                     {% else %}
                         <form method="POST" action="sign_in">
                             <h1 class="logo">AI야어여</h1>
                             <input type="text" name="ID" maxlength="10" class="login-form-field" placeholder="Username"></label><br>
                             <input type="password" name="PW" maxlength="10" class="login-form-field" placeholder="Password"></label><br>
-                            <input class="login-form-submit" type="submit" id = 'Sign in', value="Sign in">
+                            <input class="login-form-submit" type="submit" id = 'Signin', value="Sign in">
                         </form>
                     {% endif %}
                 </div>
