@@ -31,7 +31,7 @@
             <p id="user_audio" hidden>{{user_audio}}</p>
         </div>
 
-        <div style="padding-top: 3%; padding-left: 5%; height: 15%; width: 85%; text-align: center; font-size: 1.5vw; font-weight: 900;" name="유저 발음 비교">
+        <div id="user_word" name="유저 발음 비교">
             <span
             {% for idx in user_pronounce %}
                 {% if user_pronounce[loop.index-1] != pronounce[loop.index-1] %}
@@ -43,24 +43,26 @@
             >
         </div>
 
-        <div name="단어 학습 페이지 하단 버튼">
+        <div id="bottom_btn" name="단어 학습 페이지 하단 버튼">
             {% if add_or_today == 'today' %} 
-                <form method="POST" action="go_prev_word">
+                <form class="arrow" id="prev" method="POST" action="go_prev_word">
                     <input type="image" src="../static/src/img/prev.png" type="submit" class="move_button">
                 </form>
             {% else %}
-                <form method="POST" action="go_prev_page">
+                <form class="arrow" id="prev" method="POST" action="go_prev_page">
                     <input type="image" src="../static/src/img/prev.png" type="submit" class="move_button">
                 </form>
             {% endif %}
-
-            <div id='word1' onclick="word1_click()" class="add_word">{{add[0]}}</div>
-            <div id='word2' onclick="word2_click()" class="add_word">{{add[1]}}</div>
-            <div id='word3' onclick="word3_click()" class="add_word">{{add[2]}}</div>
-            <p id="add_or_today" hidden>{{add_or_today}}</p>
+            <div name="추가 단어" style="padding-left: 20%;">
+                <div id='word1' onclick="word1_click()" class="add_word">{{add[0]}}</div>
+                <div id='word2' onclick="word2_click()" class="add_word">{{add[1]}}</div>
+                <div id='word3' onclick="word3_click()" class="add_word">{{add[2]}}</div>
+                <p id="add_or_today" hidden>{{add_or_today}}</p>
+            </div>
             
             {% if add_or_today == 'today' %} 
-                <form method="POST" action="go_next_word">
+                <form class="arrow" id="next" method="POST" action="go_next_word">
+
                     <input type="image" src="../static/src/img/next.png" type="submit" class="move_button">
                 </form>
             {% endif %}
