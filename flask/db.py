@@ -2,41 +2,75 @@ from distutils.log import INFO
 from hashlib import new
 import pymongo
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
+import yaml
+import os.path
+from os import path
 
-db_api=""
-client = pymongo.MongoClient(db_api)
+with open('api.yaml') as f:
+    db_key = yaml.load(f, Loader=yaml.FullLoader)
+
+client = pymongo.MongoClient(db_key['mongo_client'])
 db = client.boostcamp
 collection = db.users
-    
+print("got client")
+
 def check(id_info):
     """
-    DB에 해당 유저가 있는지 확인하는 함수
-    user가 없다면 새로 저장하기
-    id_info : google token
+    id_info : email and name
+    Check if the email is in the database, and if it is a new user, save the info in the database
     """
     user = collection.find_one({'email': id_info['email']})
+    #print(user)
 
     if not user:
-        # 새 user 저장
         user_data = {
             'email': id_info['email'],
             'name': id_info['name'],
         }
         collection.insert_one(user_data)
+    #print("compelte check")
 
 def attendance(target_email):
-    new_date=datetime.today() 
+    new_date=datetime.now().date() #today's date
+    #print(new_date)
+
+    #Check whether the email is in the database
     existing_data = collection.find_one({'email': target_email})
-    # 이미 해당 id에 대한 document가 존재하는 경우
+    new_date = new_date.strftime("%Y-%m-%d") #datetime to string
+
     if existing_data:
-        # 'date' 필드가 이미 존재하는지 확인합니다.
         if 'date' in existing_data:
-            # 'date' 필드에 새로운 날짜를 추가합니다.
+            #Add new date
             existing_data['date'].append(new_date)
         else:
-            # 'date' 필드가 존재하지 않으면 새로 생성합니다.
+            #Create a date field
             existing_data['date'] = [new_date]
 
-        # 업데이트된 document를 저장합니다.
+        #update the document
         collection.update_one({'email': target_email}, {'$set': existing_data})
+    #print("attendance complete")
+
+def heatmap(target_email):
+    today = datetime.now().date() #todays's date
+    days=5 #99
+    start = today + timedelta(days = -days)
+    new = []
+
+    #today ~ days ago
+    for i in range(0,days+1):
+        tmp_date = start + timedelta(days = i)
+        tmp_date = tmp_date.strftime("%Y-%m-%d")
+        if collection.find_one({'email': target_email,"date":tmp_date}):
+            new.append(True)
+        else:
+             new.append(False)
+
+    #print("heatmap days complete")
+    return new
+
+if __name__ == '__main__':
+    info={'email':'email','name':'hi'}
+    check(info)
+    attendance(info['email'])
+    print(heatmap(info['email']))
