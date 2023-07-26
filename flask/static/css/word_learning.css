@@ -225,13 +225,11 @@ audio::-webkit-media-controls-panel {
 } 
 
 .rule {
-    margin: 0;
-    float: left;
+    width: 100%;
     background-color: #FFFFFF;
     border: 1px solid;
     border-color: #FFFFFF;
     border-radius: 15px;
-    height: 100%;
-    width: 100%;
     text-align: center;
+    padding-bottom: 20px;
 }
