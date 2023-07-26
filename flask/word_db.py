@@ -1,8 +1,12 @@
 import pymongo
 import random
+import yaml
+
+with open('/opt/ml/flask/api.yaml', encoding='UTF-8') as f:
+    api = yaml.load(f, Loader=yaml.FullLoader)
 
 client = ""
-connection = pymongo.MongoClient(client)
+connection = pymongo.MongoClient(api['connection'])
 db = connection.data
 word = db.words
 

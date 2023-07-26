@@ -11,14 +11,14 @@ collection = db.users
     
 def check(id_info):
     """
-    DB¿¡ ÇØ´ç À¯Àú°¡ ÀÖ´ÂÁö È®ÀÎÇÏ´Â ÇÔ¼ö
-    user°¡ ¾ø´Ù¸é »õ·Î ÀúÀåÇÏ±â
+    DBì— í•´ë‹¹ ìœ ì €ê°€ ìˆëŠ”ì§€ í™•ì¸í•˜ëŠ” í•¨ìˆ˜
+    userê°€ ì—†ë‹¤ë©´ ìƒˆë¡œ ì €ì¥í•˜ê¸°
     id_info : google token
     """
     user = collection.find_one({'email': id_info['email']})
 
     if not user:
-        # »õ user ÀúÀå
+        # ìƒˆ user ì €ì¥
         user_data = {
             'email': id_info['email'],
             'name': id_info['name'],
@@ -28,15 +28,15 @@ def check(id_info):
 def attendance(target_email):
     new_date=datetime.today() 
     existing_data = collection.find_one({'email': target_email})
-    # ÀÌ¹Ì ÇØ´ç id¿¡ ´ëÇÑ document°¡ Á¸ÀçÇÏ´Â °æ¿ì
+    # ì´ë¯¸ í•´ë‹¹ idì— ëŒ€í•œ documentê°€ ì¡´ì¬í•˜ëŠ” ê²½ìš°
     if existing_data:
-        # 'date' ÇÊµå°¡ ÀÌ¹Ì Á¸ÀçÇÏ´ÂÁö È®ÀÎÇÕ´Ï´Ù.
+        # 'date' í•„ë“œê°€ ì´ë¯¸ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸í•©ë‹ˆë‹¤.
         if 'date' in existing_data:
-            # 'date' ÇÊµå¿¡ »õ·Î¿î ³¯Â¥¸¦ Ãß°¡ÇÕ´Ï´Ù.
+            # 'date' í•„ë“œì— ìƒˆë¡œìš´ ë‚ ì§œë¥¼ ì¶”ê°€í•©ë‹ˆë‹¤.
             existing_data['date'].append(new_date)
         else:
-            # 'date' ÇÊµå°¡ Á¸ÀçÇÏÁö ¾ÊÀ¸¸é »õ·Î »ı¼ºÇÕ´Ï´Ù.
+            # 'date' í•„ë“œê°€ ì¡´ì¬í•˜ì§€ ì•Šìœ¼ë©´ ìƒˆë¡œ ìƒì„±í•©ë‹ˆë‹¤.
             existing_data['date'] = [new_date]
 
-        # ¾÷µ¥ÀÌÆ®µÈ document¸¦ ÀúÀåÇÕ´Ï´Ù.
+        # ì—…ë°ì´íŠ¸ëœ documentë¥¼ ì €ì¥í•©ë‹ˆë‹¤.
         collection.update_one({'email': target_email}, {'$set': existing_data})
