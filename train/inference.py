@@ -4,6 +4,7 @@ import torch
 import pandas as pd
 from tqdm.auto import tqdm
 from sklearn.model_selection import train_test_split
+import nlptutti as metrics
 
 def compute_metrics(pred: list, answer: list) -> 'dict':
     '''
@@ -12,7 +13,7 @@ def compute_metrics(pred: list, answer: list) -> 'dict':
     '''
     wer_metric = 0
     cer_metric = 0
-  
+
     for i in range(len(pred)):
         preds = pred[i].replace(" ", "")
         answers = answer[i].replace(" ", "")
@@ -107,5 +108,5 @@ def infer_output_with_metric(data, path, model):
 
 if __name__ == "__main__":
   # file_info = ["오디오 경로 정보 파일", "원천데이터 폴더 경로", "모델 경로"]
-  infer_output_with_metric("data/foreign_audio.csv", "data/", "./save_model/PJY_4_kresnik/wav2vec2-large-xlsr-korean")
+  infer_output_with_metric("../foreign_audio.csv", "../", "../save_model")
   print(inference("data/ncloud_tts_data/jinho/1_가격_jinho.wav", "./save_model/PJY_4_tts_word"))
