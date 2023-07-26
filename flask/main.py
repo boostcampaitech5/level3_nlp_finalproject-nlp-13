@@ -1,8 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from functions import thread, todays_word
 from word_db import get_rule, word_dict
-import random
-
+    
 app = Flask(__name__)
 app.secret_key = b'817089'
 
@@ -13,9 +12,8 @@ def home():
     session['now'] = 'home'
     user = session['user'] if 'user' in session else ''
     language = session['language'] if 'language' in session else 'kor'
-    attend = [False if random.randint(0,1)==0 else True for _ in range(100)]
-    return render_template("main.html", lang=language, word1 = todays_word[0], word2 = todays_word[1], word3 = todays_word[2], user=user, attend = attend)
-
+    attend = [True] * 100
+    return render_template("main.html", lang=language, word1 = todays_word[0], word2 = todays_word[1], word3 = todays_word[2], user=user, attend=attend)
 
 @app.route('/language_select', methods=['GET','POST'])
 def language_select():
@@ -63,7 +61,7 @@ def word_learning_todays_word():
     user_audio = session['user_audio'] if 'user_audio' in session else ''
     user_pronounce = session['user_pronounce'] if 'user_pronounce' in session else ''
 
-    return render_template("word_learning.html", user=user, lang=language, word=word, pronounce=pronounce, explanation='수료하면 뭐하지...', audio='../static/src/audio/어른.mp3', user_audio=user_audio, user_pronounce=user_pronounce, add=recommend, rule=rule, add_or_today='today')
+    return render_template("word_learning.html", user=user, lang=language, word=word, pronounce=pronounce, explanation='수료하면 뭐하지...', audio='../static/src/audio/어른.flac', user_audio=user_audio, user_pronounce=user_pronounce, add=recommend, rule=rule, add_or_today='today')
 
 @app.route('/word_learning_additional_word', methods=['GET','POST'])
 def word_learning_additional_word():
@@ -79,7 +77,6 @@ def word_learning_additional_word():
         session['word'] = request.form['word']
 
     word = session['word']
-
     word_info = word_dict(word)
     pronounce = word_info['g2p_word']
     rule = [word_info['rule'], get_rule(word_info['rule'])]
@@ -89,7 +86,7 @@ def word_learning_additional_word():
     user_audio = session['user_audio'] if 'user_audio' in session else ''
     user_pronounce = session['user_pronounce'] if 'user_pronounce' in session else ''
 
-    return render_template("word_learning.html", user=user, lang=language, word=word, pronounce=pronounce,explanation='나도 9900억 받고싶다...', audio='../static/src/audio/Rainy day.mp3', user_audio=user_audio, user_pronounce=user_pronounce, add=todays_word, rule=rule, add_or_today='add')
+    return render_template("word_learning.html", user=user, lang=language, word=word, pronounce=pronounce,explanation='나도 9900억 받고 싶다...', audio='../static/src/audio/0310.mp3', user_audio=user_audio, user_pronounce=user_pronounce, add=todays_word, rule=rule, add_or_today='add')
 
 @app.route('/go_prev_word', methods=['GET','POST'])
 def go_prev_word():

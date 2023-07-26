@@ -11,16 +11,6 @@
 # hlsearch on (H) or off (h):
 ~h
 # Command Line History (newest to oldest):
-:wq
-|2,0,1690288977,,"wq"
-:.!r
-|2,0,1690288919,,".!r"
-:.!q
-|2,0,1690288909,,".!q"
-:.,.+1!q
-|2,0,1690288753,,".,.+1!q"
-:.,.+1!
-|2,0,1690288744,,".,.+1!"
 
 # Search String History (newest to oldest):
 
@@ -31,95 +21,15 @@
 # Debug Line History (newest to oldest):
 
 # Registers:
-"0	LINE	0
-	mergr
-|3,0,0,1,1,0,1690288582,"mergr"
-"1	LINE	0
-	/bin/bash: q: command not found
-|3,0,1,1,1,0,1690288940,"/bin/bash: q: command not found"
-"2	LINE	0
-	/bin/bash: r: command not found
-|3,0,2,1,1,0,1690288939,"/bin/bash: r: command not found"
-"3	LINE	0
-	#
-|3,0,3,1,1,0,1690288938,"#"
-"4	LINE	0
-	#
-|3,0,4,1,1,0,1690288569,"#"
-"5	LINE	0
-	# especially if it merges an updated upstream into a topic branch.
-|3,0,5,1,1,0,1690288568,"# especially if it merges an updated upstream into a topic branch."
-"6	LINE	0
-	# Please enter a commit message to xplain why this merge is necessary,
-|3,0,6,1,1,0,1690288568,"# Please enter a commit message to xplain why this merge is necessary,"
-"7	LINE	0
-	Merge branch 'main' of https://github.com/boostcampaitech5/level3_nlp_finalproject-nlp-13 into KJ
-|3,0,7,1,1,0,1690288567,"Merge branch 'main' of https://github.com/boostcampaitech5/level3_nlp_finalproject-nlp-13 into KJ"
-"a	CHAR	0
-	!
-|3,0,10,0,1,0,1690288745,"!"
 "q	CHAR	0
-	w
-|3,0,26,0,1,0,1690288461,"w"
-"w	CHAR	0
-	w
-|3,0,32,0,1,0,1690288461,"w"
-"z	CHAR	0
-	z€kb€kbxxxxxccdddfazq
-|3,0,35,0,1,0,1690288611,"z€kb€kbxxxxxccdddfazq"
-""-	CHAR	0
-	dddf
-|3,1,36,0,1,0,1690288613,"dddf"
+	wWQWWWW
+|3,0,26,0,1,0,1690205324,"wWQWWWW"
 
 # File marks:
-'0  1  0  ~/.git/MERGE_MSG
-|4,48,1,0,1690289036,"~/.git/MERGE_MSG"
-'1  2  0  ~/.git/MERGE_MSG
-|4,49,2,0,1690288977,"~/.git/MERGE_MSG"
-'2  1  0  ~/.git/MERGE_MSG
-|4,50,1,0,1690288656,"~/.git/MERGE_MSG"
-'3  1  0  ~/.git/MERGE_MSG
-|4,51,1,0,1690288656,"~/.git/MERGE_MSG"
-'4  1  0  ~/.git/MERGE_MSG
-|4,52,1,0,1690288401,"~/.git/MERGE_MSG"
-'5  1  0  ~/.git/MERGE_MSG
-|4,53,1,0,1690288401,"~/.git/MERGE_MSG"
-'6  1  12  ~/.git/MERGE_MSG
-|4,54,1,12,1690288284,"~/.git/MERGE_MSG"
-'7  1  12  ~/.git/MERGE_MSG
-|4,55,1,12,1690288284,"~/.git/MERGE_MSG"
-'8  3  12  ~/.git/MERGE_MSG
-|4,56,3,12,1690288284,"~/.git/MERGE_MSG"
-'9  3  12  ~/.git/MERGE_MSG
-|4,57,3,12,1690288284,"~/.git/MERGE_MSG"
+'0  3  1  ~/.git/MERGE_MSG
+|4,48,3,1,1690205523,"~/.git/MERGE_MSG"
 
 # Jumplist (newest first):
--'  1  0  ~/.git/MERGE_MSG
-|4,39,1,0,1690289036,"~/.git/MERGE_MSG"
--'  2  0  ~/.git/MERGE_MSG
-|4,39,2,0,1690288977,"~/.git/MERGE_MSG"
--'  1  0  ~/.git/MERGE_MSG
-|4,39,1,0,1690288666,"~/.git/MERGE_MSG"
--'  1  0  ~/.git/MERGE_MSG
-|4,39,1,0,1690288656,"~/.git/MERGE_MSG"
--'  1  0  ~/.git/MERGE_MSG
-|4,39,1,0,1690288401,"~/.git/MERGE_MSG"
--'  3  12  ~/.git/MERGE_MSG
-|4,39,3,12,1690288284,"~/.git/MERGE_MSG"
--'  7  12  ~/.git/MERGE_MSG
-|4,39,7,12,1690288284,"~/.git/MERGE_MSG"
--'  7  12  ~/.git/MERGE_MSG
-|4,39,7,12,1690288284,"~/.git/MERGE_MSG"
--'  7  12  ~/.git/MERGE_MSG
-|4,39,7,12,1690288284,"~/.git/MERGE_MSG"
--'  1  0  ~/.git/MERGE_MSG
-|4,39,1,0,1690288131,"~/.git/MERGE_MSG"
--'  3  1  ~/.git/MERGE_MSG
-|4,39,3,1,1690205523,"~/.git/MERGE_MSG"
--'  3  1  ~/.git/MERGE_MSG
-|4,39,3,1,1690205523,"~/.git/MERGE_MSG"
--'  3  1  ~/.git/MERGE_MSG
-|4,39,3,1,1690205523,"~/.git/MERGE_MSG"
 -'  3  1  ~/.git/MERGE_MSG
 |4,39,3,1,1690205523,"~/.git/MERGE_MSG"
 -'  1  0  ~/.git/MERGE_MSG
@@ -128,20 +38,12 @@
 # History of marks within files (newest to oldest):
 
 > ~/.git/MERGE_MSG
-	*	1690289036	0
-	"	1	0
-	^	1	0
-	.	1	0
-	+	1	223
-	+	1	3
-	+	1	98
-	+	1	169
-	+	1	30
-	+	1	98
-	+	1	35
-	+	1	98
-	+	1	0
-	+	1	96
-	+	1	4
+	*	1690205523	0
+	"	3	1
+	^	3	3
+	.	2	71
+	+	3	223
+	+	3	3
 	+	2	0
-	+	1	0
+	+	2	71
+	e	3	3

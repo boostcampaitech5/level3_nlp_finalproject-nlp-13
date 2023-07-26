@@ -64,11 +64,12 @@
                             <span>Tiếng Việt</span> 
                         </label>
                         <input type="submit" id = 'language_change', value="" style="display: none;"> 
-                    </form>
-                </div>
-                {% block column_left %}
+                    </div>
+                </form>
+                {% block main %}
                 {% endblock %}
             </div>
+            
             
             <div class="column right">
                 <div class="user_info">
@@ -87,9 +88,8 @@
                         </form>
                     {% endif %}
                 </div>
-                {% block column_right %}
-                {% endblock %}
             </div>
+        </div>
         <script src="../static/js/base.js"></script>
     </body>
 </html>

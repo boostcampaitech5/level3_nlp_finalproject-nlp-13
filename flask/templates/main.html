@@ -1,17 +1,16 @@
 {% extends 'base.html' %}
 {% block column_left %}
-    <link rel="stylesheet" href="../static/css/main.css">
-        <div class="todays_word">
-            <p style="font-weight: 750;">오늘의 단어</p>
-            <div class="word_box">
-                <div class="word" id = "word_box1" onclick="word1_click()">{{word1}}</div>
-            </div>
-            <div class="word_box">
-                <div class="word" id = "word_box2" onclick="word2_click()">{{word2}}</div>
-            </div>
-            <div class="word_box">
-                <div class="word" id = "word_box3" onclick="word3_click()">{{word3}}</div>
-            </div>
+<link rel="stylesheet" href="../static/css/main.css">
+    <div class="todays_word">
+        <p style="font-weight: 750;">오늘의 단어</p>
+        <div class="word_box">
+            <div class="word" id = "word_box1" onclick="word1_click()" >{{word1}}</div>
+        </div>
+        <div class="word_box">
+            <div class="word" id = "word_box2" onclick="word2_click()" >{{word2}}</div>
+        </div>
+        <div class="word_box">
+            <div class="word" id = "word_box3" onclick="word3_click()" >{{word3}}</div>
         </div>
     <script src="../static/js/main.js"></script>
 {% endblock %}
@@ -31,4 +30,5 @@
             {% endfor %}
         {% endif %}
     </div>
+<script src="../static/js/main.js"></script>
 {% endblock %}
