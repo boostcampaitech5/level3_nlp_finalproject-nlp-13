@@ -178,9 +178,9 @@ audio::-webkit-media-controls-panel {
     border-radius: 40px;
     color: #FFFFFF;
     float: left;
-    width: 18%;
+    width: 10%;
     margin-left: 2%;
-    padding: 2%;
+    padding: 0.5%;
     display: flex;
     align-items: center;
     text-align: center;
@@ -192,8 +192,25 @@ audio::-webkit-media-controls-panel {
 }
 
 .move_button {
-    width: 4%;
-    height: 4%;
+    float: left;
+    width: 6%;
+    height: 6%;
+    margin-left: 2%;
+    padding: 2%;
     display: flex;
+    justify-content: center;
+    box-shadow: inset;
     position: relative;
+}
+
+.rule {
+    margin: 0;
+    float: left;
+    background-color: #FFFFFF;
+    border: 1px solid;
+    border-color: #FFFFFF;
+    border-radius: 15px;
+    height: 100%;
+    width: 100%;
+    text-align: center;
 }

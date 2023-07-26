@@ -100,3 +100,15 @@ p {
         font-size: 2.5vh;
     }
 }
+
+.grass {
+    margin: 0;
+    float: left;
+    background-color: #FFFFFF;
+    border: 1px solid;
+    border-color: #FFFFFF;
+    border-radius: 15px;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
