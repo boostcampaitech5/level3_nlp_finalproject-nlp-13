@@ -66,7 +66,7 @@
                         <input type="submit" id = 'language_change', value="" style="display: none;"> 
                     </div>
                 </form>
-                {% block main %}
+                {% block column_left %}
                 {% endblock %}
             </div>
             
@@ -88,6 +88,8 @@
                         </form>
                     {% endif %}
                 </div>
+                {% block column_right %}
+                {% endblock %}
             </div>
         </div>
         <script src="../static/js/base.js"></script>
