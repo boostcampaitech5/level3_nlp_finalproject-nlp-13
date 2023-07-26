@@ -97,16 +97,19 @@ def infer_output_with_metric(data, path, model):
     output.append(inference(audio, model, processor))
 
   print(output)
-  
+  try:
+    print(compute_metrics(output, answer))
+  except:
+    pass
 
-  output = pd.DataFrame({'text':output})
-  # output = pd.DataFrame({'text':output, 'answer': file_path})
+  # output = pd.DataFrame({'text':output})
+  output = pd.DataFrame({'text':output, 'answer': answer})
   output.to_csv("output.csv", index=False)
   print("SUCCESSFULLY SAVED!")
-  print(compute_metrics(output, answer))
+  # print(compute_metrics(output, answer))
 
 
 if __name__ == "__main__":
   # file_info = ["오디오 경로 정보 파일", "원천데이터 폴더 경로", "모델 경로"]
-  infer_output_with_metric("../foreign_audio.csv", "../", "../save_model")
-  print(inference("data/ncloud_tts_data/jinho/1_가격_jinho.wav", "./save_model/PJY_4_tts_word"))
+  infer_output_with_metric("data/foreign_audio_shuffled.csv", "data/", "save_model/PJY_4_kresnik")
+  # print(inference("data/ncloud_tts_data/jinho/1_가격_jinho.wav", "./save_model/PJY_4_tts_word"))

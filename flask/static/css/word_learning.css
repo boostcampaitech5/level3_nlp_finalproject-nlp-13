@@ -1,15 +1,235 @@
+p {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    font-size: 3vw;
+}
+button:hover {
+    cursor: pointer;
+}
+
+#word>span {
+    vertical-align: middle;
+    float: left;
+    text-align: left;
+    padding-right: 6px;
+}
+
+#bottom_btn {
+    margin-left: 5%; 
+    margin-right: 5%; 
+
+}
+
+.arrow {
+    display: inline-block;
+    width: fit-content;
+}
+
+#prev {
+    float: left;
+}
+
+#next {
+    float: right;
+}
+
+#pronounce {
+    border-style: hidden;
+    background-color: rgba(255, 255, 255, 0);
+    height: 100%;
+    width: auto;
+    float: left;
+    padding: 0;
+}
+
+#pronounce_button{
+    border-style: hidden;
+    background-color: rgba(255, 255, 255, 0);
+    height: 100%;
+    width: auto;
+    justify-content: center;
+
+}
+
 .todays_word{
+    margin: 0;
+    float: left;
     background-color: #FFFFFF;
     border: 1px solid;
     border-color: #FFFFFF;
-    border-radius: 3%;
-    height: 50%;
-    margin-top: 10.5%;
-    margin-left: 10%;
-    position: fixed;
-    width:38%;
+    border-radius: 15px;
+    height: 100%;
+    width: 90%;
+    padding: 30px;
+    padding-top: 0;
+    text-align: center;
+}
+
+.todays_word>p{
+    text-align: left;
+}
+
+.word_card{
+    background-image: linear-gradient(to bottom right, #78E7FF, #00CFFD);
+    border-radius: 20px;
+    overflow: hidden;
+    height: auto;
+    width: 80%;
+    margin-left: 5%;
+    padding: 5%;
+}
+
+.add_word {
+    background-image: linear-gradient(to bottom right, #78E7FF, #00CFFD);
+    border-radius: 40px;
+    color: #FFFFFF;
+    float: left;
+    width: 18%;
+    margin-left: 2%;
+    padding: 2%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    box-shadow: inset;
+    font-weight: 500;
+    font-size: 1vw;
+    position: relative;
+}
+
+.add_word:hover{
+    cursor: pointer;
+}
+
+
+
+#word {
+    color: #FFFFFF;
+    font-size: 2vw;
+    font-weight: 700;
+    float: left;
+}
+
+#explanation {
+    margin-top: 1%;
+    width: 90%;
+    display: flex;
+    float: left;
+}
+
+#explanation > div {
+    font-size: 1.2vw;
+}
+
+
+#recording {
+    display: inline-block;
+    height: 100%;
+    width: fit-content;
+    margin-top: 3%;
+}
+
+#record {
+    height: 100%;
+    width: auto;
+    background-color: #FFFFFF;
+    border: #FFFFFF;
+    float: left;
+}
+
+#record_button {
+    height: 40px;
+    width: auto;
+}
+
+#play {
+    height: 40px;
+    min-width: 250px;
 }
 
 audio::-webkit-media-controls-panel {
-    background-color: #00CFFD;
+    background-image: linear-gradient(to bottom right, #78E7FF, #00CFFD);
+    border-color: #00CFFD;
+    border-radius: 1px;
   }
+
+  #user_word{
+    padding: 5%; 
+    height: 15%; 
+    width: 90%; 
+    text-align: center; 
+    font-size: 2vw; 
+    font-weight: 900;
+  }
+
+@media (max-width: 600px) {
+    .todays_word{
+      width: 100%;
+      padding: 0;
+      text-align: center;
+      align-items: center;
+    }
+
+    .todays_word>p{
+        text-align: center;
+    }
+
+    p{
+        width: 100%;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        margin-left: 0;
+        font-size: 2em;
+        text-align: center;
+    }
+    .word_card {
+        display:block;
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-bottom: 5%;
+        padding-bottom: 20%;
+        width: 70%;
+    }
+    #word {
+        font-size: 1.5em;
+        float: left;
+    }
+
+    #explanation > div {
+        font-size: 1em;
+    }
+
+    #recording{
+        margin-left: 10%;
+        margin-right: 10%;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+    }
+
+    #record {
+        float: none;
+        display: inline-block;
+        margin: auto;
+    }
+    
+    #play {
+        margin: auto;
+        width: fit-content;
+    }
+
+    #user_word {
+        font-size: 1.5em;
+    }
+} 
+
+.rule {
+    width: 100%;
+    background-color: #FFFFFF;
+    border: 1px solid;
+    border-color: #FFFFFF;
+    border-radius: 15px;
+    text-align: center;
+    padding-bottom: 20px;
+}

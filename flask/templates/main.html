@@ -1,13 +1,35 @@
 {% extends 'base.html' %}
-{% block content %}
+{% block column_left %}
 <link rel="stylesheet" href="../static/css/main.css">
-<div>
     <div class="todays_word">
-        <p style="margin-top: 5%; margin-left: 7.5%; font-size: 1.54vw; font-weight: 900;">오늘의 단어</p>
-        <div class="word_box" id = "word_box1" onclick="word1_click()" style="margin-top: 3%; margin-left: 6%; position:absolute;">{{word1}}</div>
-        <div class="word_box" id = "word_box2" onclick="word2_click()" style="margin-top: 3%; margin-left: 36%; position:absolute;">{{word2}}</div>
-        <div class="word_box" id = "word_box3" onclick="word3_click()" style="margin-top: 3%; margin-left: 66%; position:absolute;">{{word3}}</div>
+        <p style="font-weight: 750;">오늘의 단어</p>
+        <div class="word_box">
+            <div class="word" id = "word_box1" onclick="word1_click()" >{{word1}}</div>
+        </div>
+        <div class="word_box">
+            <div class="word" id = "word_box2" onclick="word2_click()" >{{word2}}</div>
+        </div>
+        <div class="word_box">
+            <div class="word" id = "word_box3" onclick="word3_click()" >{{word3}}</div>
+        </div>
     </div>
-</div>
+    <script src="../static/js/main.js"></script>
+{% endblock %}
+
+{% block column_right %}
+    {% if user != '' %}
+        <div class="grass" style="margin-top: 5%;">
+            {% for i in range(100) %}
+                {% if i % 10 == 0 %}
+                    <br>
+                {% endif %}
+                {% if attend[i] %}
+                    <div style="height: 10px; width: 10px; border: 1px solid black; border-color: black; background-color: greenyellow; display: inline-block;"></div>
+                {% else %}
+                    <div style="height: 10px; width: 10px; border: 1px solid black; border-color: black; background-color: white; display: inline-block;"></div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
 <script src="../static/js/main.js"></script>
 {% endblock %}

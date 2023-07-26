@@ -1,7 +1,7 @@
 from transformers import AutoConfig, AutoTokenizer, AutoFeatureExtractor, Wav2Vec2CTCTokenizer, Wav2Vec2Processor, AutoModelForCTC, TrainingArguments, Trainer
 import numpy as np
 from train.datacollator import DataCollatorCTCWithPadding
-from dataset import get_dataset
+from train.dataset import get_dataset
 import nlptutti as metrics
 
 #model_checkpoint = "kresnik/wav2vec2-large-xlsr-korean" 

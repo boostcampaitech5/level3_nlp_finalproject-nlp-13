@@ -20,9 +20,11 @@ def set_vocab_dict(path: str):
     vocab_dict = {v: k for k, v in enumerate(vocab_list)}
 
     vocab_dict["|"] = len(vocab_dict)
+    vocab_dict["[SN]"] = len(vocab_dict)
+    vocab_dict["[NO]"] = len(vocab_dict)
     vocab_dict["[UNK]"] = len(vocab_dict)
     vocab_dict["[PAD]"] = len(vocab_dict)
-    with open('vocab.json', 'w', encoding="utf-8") as vocab_file:
+    with open('vocab2.json', 'w', encoding="utf-8") as vocab_file:
         json.dump(vocab_dict, vocab_file, ensure_ascii=False)
 
 
@@ -60,17 +62,6 @@ def rearrange_data(data_path: str):
     with open('label.json', 'w', encoding='utf-8') as vocab_file:
         json.dump(vocab, vocab_file, ensure_ascii=False)
 
-def train_test(path: str):
-    with open(path, "r", encoding="utf8") as f:
-        f = json.load(f)
-    
-    trainx, testx, trainy, testy = train_test_split(f['audio'], f['sentence'], test_size=0.2, shuffle=False, random_state=42)
-    print(type(trainx))
-    print(trainy[:5])
-    print(testx[:5])
-
-
 if __name__ == "__main__":
-        set_vocab_dict('../text_data/after_g2p_sentences.json')
+        set_vocab_dict('text_data/after_g2p_sentences.json')
         # rearrange_data('text_data/after_g2p_sentences.json')
-        # train_test('label.json')
