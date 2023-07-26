@@ -16,7 +16,6 @@ p {
     width: 90%;
     padding: 30px;
     padding-top: 0;
-    padding-bottom: 50px;
 
 }
 
@@ -41,6 +40,7 @@ p {
     font-weight: 500;
     font-size: 1.8vw;
     position: relative;
+    margin-bottom: 30px;
 }
 
 .word_box:hover {
@@ -97,7 +97,19 @@ p {
         width: 70%;
     }
     .word {
-        font-size: 2.5vh;
+        font-size: 20px;
     }
+}
 
+.grass {
+    margin: 0;
+    float: left;
+    background-color: #FFFFFF;
+    border: 1px solid;
+    border-color: #FFFFFF;
+    border-radius: 15px;
+    height: 100%;
+    width: 90%;
+    padding: 30px;
+    padding-top: 0;
 }

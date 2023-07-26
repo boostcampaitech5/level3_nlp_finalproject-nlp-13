@@ -2,20 +2,36 @@ p {
     margin-top: 5%;
     margin-bottom: 5%;
     margin-left: 5%;
-    font-size: 3.2vw;
+    font-size: 3vw;
 }
 button:hover {
     cursor: pointer;
 }
 
-div{
-    height: 100%;
-}
-
-span {
+#word>span {
     vertical-align: middle;
     float: left;
     text-align: left;
+    padding-right: 6px;
+}
+
+#bottom_btn {
+    margin-left: 5%; 
+    margin-right: 5%; 
+
+}
+
+.arrow {
+    display: inline-block;
+    width: fit-content;
+}
+
+#prev {
+    float: left;
+}
+
+#next {
+    float: right;
 }
 
 #pronounce {
@@ -23,6 +39,8 @@ span {
     background-color: rgba(255, 255, 255, 0);
     height: 100%;
     width: auto;
+    float: left;
+    padding: 0;
 }
 
 #pronounce_button{
@@ -45,7 +63,6 @@ span {
     width: 90%;
     padding: 30px;
     padding-top: 0;
-    padding-bottom: 50px;
     text-align: center;
 }
 
@@ -61,6 +78,28 @@ span {
     width: 80%;
     margin-left: 5%;
     padding: 5%;
+}
+
+.add_word {
+    background-image: linear-gradient(to bottom right, #78E7FF, #00CFFD);
+    border-radius: 40px;
+    color: #FFFFFF;
+    float: left;
+    width: 18%;
+    margin-left: 2%;
+    padding: 2%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    box-shadow: inset;
+    font-weight: 500;
+    font-size: 1vw;
+    position: relative;
+}
+
+.add_word:hover{
+    cursor: pointer;
 }
 
 
@@ -115,6 +154,15 @@ audio::-webkit-media-controls-panel {
     border-radius: 1px;
   }
 
+  #user_word{
+    padding: 5%; 
+    height: 15%; 
+    width: 90%; 
+    text-align: center; 
+    font-size: 2vw; 
+    font-weight: 900;
+  }
+
 @media (max-width: 600px) {
     .todays_word{
       width: 100%;
@@ -155,7 +203,6 @@ audio::-webkit-media-controls-panel {
     #recording{
         margin-left: 10%;
         margin-right: 10%;
-        margin-bottom: 5%;
         align-items: center;
         text-align: center;
         justify-content: center;
@@ -172,4 +219,17 @@ audio::-webkit-media-controls-panel {
         width: fit-content;
     }
 
+    #user_word {
+        font-size: 1.5em;
+    }
+} 
+
+.rule {
+    width: 100%;
+    background-color: #FFFFFF;
+    border: 1px solid;
+    border-color: #FFFFFF;
+    border-radius: 15px;
+    text-align: center;
+    padding-bottom: 20px;
 }

@@ -34,3 +34,5 @@ nohup.out
 .dotnet/
 tmp/
 test/
+*.yaml
+*.bin
