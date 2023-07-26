@@ -53,6 +53,29 @@ def word_learning_todays_word():
         session['num'] = int(request.form['num'])
 
     word = todays_word[session['num']]
+    #pronounce = 단어의 발음기호
+    #explanation = 단어 설명
+    #audio = 단어 발음 음성
+
+    user_audio = session['user_audio'] if 'user_audio' in session else ''
+    user_pronounce = session['user_pronounce'] if 'user_pronounce' in session else ''
+
+    return render_template("word_learning.html", user=user, lang=language, word=word, pronounce='다너',explanation='단어가 단어지 뭐임', audio='../static/src/audio/0310.mp3', user_audio=user_audio, user_pronounce=user_pronounce, add=['Square','저녁하늘','너도'], add_or_today='today')
+
+@app.route('/word_learning_additional_word', methods=['GET','POST'])
+def word_learning_additional_word():
+    session['now'] = 'word_learning_additional_word'
+    user = session['user'] if 'user' in session else ''
+    language = session['language'] if 'language' in session else 'kor'
+
+    if request.method == 'POST':
+        if 'user_audio' in session:
+            session.pop('user_audio')
+        if 'user_pronounce' in session:
+            session.pop('user_pronounce')
+        session['num'] = int(request.form['num'])
+
+    word = todays_word[session['num']]
     word_info = word_dict(word)
     pronounce = word_info['g2p_word']
     rule = [word_info['rule'], get_rule(word_info['rule'])]
