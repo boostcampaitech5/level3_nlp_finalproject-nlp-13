@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block main %}
+{% block column_left %}
 <link rel="stylesheet" href="../static/css/word_learning.css">
 
 <div>
@@ -62,11 +62,19 @@
             
             {% if add_or_today == 'today' %} 
                 <form class="arrow" id="next" method="POST" action="go_next_word">
-                    <input type="image" src="../static/src/img/next.png" type="submit" class="move_button">
+                   <input type="image" src="../static/src/img/next.png" type="submit" class="move_button">
                 </form>
             {% endif %}
         </div>
     </div>
 </div>
 <script src="../static/js/word_learning.js"></script>
+{% endblock %}
+
+{% block column_right %}
+<link rel="stylesheet" href="../static/css/word_learning.css">
+<div name="음운 변동 규칙" class="rule" style="margin-top: 5%;">
+    <h3>{{rule[0]}}</h3>
+    <p style="font-size: 1vw;">{{rule[1]}}</p>
+</div>
 {% endblock %}
