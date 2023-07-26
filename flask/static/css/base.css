@@ -57,17 +57,11 @@ span {
 .language_select{
     width: 100%;
     height: 40px;
-    margin-bottom: 2%;
+    margin: 0 auto 2% auto;
 }
 
 .btn-language {
-    display: flex;
-    height: 40px;
-    float: left;
-    text-align: center;
-    align-content: center;
-    justify-content: center;
-    position: relative;
+    display: inline-block;
 }
 #tai, #vtn {
     width: 19%;
@@ -102,13 +96,9 @@ span {
     background-color: #FFFFFF;
     font-size: 1.2vw;
     font-weight: 600;
-    width: 100%;
     padding-bottom: 0.2%;
     padding-left: 2%;
     padding-right: 2%;
-    align-content: center;
-    justify-content: center;
-    position: relative;
 }
 
 .btn-language input[type='radio']:checked + span{
@@ -125,6 +115,39 @@ span {
     border-radius: 15px;
     text-align: center;
     padding-bottom: 20px;
+}
+
+.user_info>form{
+    text-align: center;
+}
+
+.user_info>form>div{
+    width: 100%;
+    margin: 5% auto;
+}
+
+.user_info>form>div>span{
+    font-size: 1.4vw;
+    font-weight: 600;
+    display: inline-block;
+}
+
+#Signout {
+    border-radius: 50px; 
+    border-style: hidden; 
+    background-image: linear-gradient(to right, #78E7FF, #00CFFD);
+    text-align: center; 
+    font-size: 1vw;
+    color: #FFFFFF;
+    margin-top: 1.5%; 
+    padding: 2% 5% 2% 5%;
+    display: block;
+    width: 63%;
+    margin: auto;
+}
+
+#Signout:hover {
+    cursor: pointer;
 }
 
 form {

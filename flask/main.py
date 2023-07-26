@@ -13,9 +13,9 @@ def home():
     session['now'] = 'home'
     user = session['user'] if 'user' in session else ''
     language = session['language'] if 'language' in session else 'kor'
-
     attend = [False if random.randint(0,1)==0 else True for _ in range(100)]
     return render_template("main.html", lang=language, word1 = todays_word[0], word2 = todays_word[1], word3 = todays_word[2], user=user, attend = attend)
+
 
 @app.route('/language_select', methods=['GET','POST'])
 def language_select():
@@ -55,15 +55,15 @@ def word_learning_todays_word():
     word = todays_word[session['num']]
     word_info = word_dict(word)
     pronounce = word_info['g2p_word']
-    recommend_word = word_info['recommend']
     rule = [word_info['rule'], get_rule(word_info['rule'])]
+    recommend = word_info['recommend']
     #explanation = 단어 설명
     #audio = 단어 발음 음성
 
     user_audio = session['user_audio'] if 'user_audio' in session else ''
     user_pronounce = session['user_pronounce'] if 'user_pronounce' in session else ''
 
-    return render_template("word_learning.html", user=user, lang=language, word=word, pronounce=pronounce,explanation='수료하면 뭐하지...', audio='../static/src/audio/어른.flac', user_audio=user_audio, user_pronounce=user_pronounce, add=recommend_word, rule=rule, add_or_today='today')
+    return render_template("word_learning.html", user=user, lang=language, word=word, pronounce=pronounce,explanation='단어가 단어지 뭐임', audio='../static/src/audio/0310.mp3', user_audio=user_audio, user_pronounce=user_pronounce, add=recommend, rule=rule, add_or_today='today')
 
 @app.route('/word_learning_additional_word', methods=['GET','POST'])
 def word_learning_additional_word():
