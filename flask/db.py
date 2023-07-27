@@ -7,10 +7,10 @@ import yaml
 import os.path
 from os import path
 
-with open('api.yaml') as f:
+with open('flask/api.yaml') as f:
     db_key = yaml.load(f, Loader=yaml.FullLoader)
 
-client = pymongo.MongoClient(db_key['mongo_client'])
+client = pymongo.MongoClient(db_key['client'])
 db = client.boostcamp
 collection = db.users
 print("got client")
