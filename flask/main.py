@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from functions import thread, todays_word
 from word_db import get_rule, word_dict
-    
+import time
+
 app = Flask(__name__)
 app.secret_key = b'817089'
 
@@ -39,6 +40,7 @@ def logout():
 
 @app.route('/word_learning_todays_word', methods=['GET','POST'])
 def word_learning_todays_word():
+    print(time.time(), 'word')
     session['now'] = 'word_learning_todays_word'
     user = session['user'] if 'user' in session else ''
     language = session['language'] if 'language' in session else 'kor'
@@ -90,6 +92,10 @@ def word_learning_additional_word():
 
 @app.route('/go_prev_word', methods=['GET','POST'])
 def go_prev_word():
+    if 'user_audio' in session:
+        session.pop('user_audio')
+    if 'user_pronounce' in session:
+        session.pop('user_pronounce')
     if session['num'] == 0:
         session['num'] = 2
     else:
@@ -98,6 +104,10 @@ def go_prev_word():
 
 @app.route('/go_next_word', methods=['GET','POST'])
 def go_next_word():
+    if 'user_audio' in session:
+        session.pop('user_audio')
+    if 'user_pronounce' in session:
+        session.pop('user_pronounce')
     if session['num'] == 2:
         session['num'] = 0
     else:
@@ -106,18 +116,21 @@ def go_next_word():
 
 @app.route('/go_prev_page', methods=['GET','POST'])
 def go_prev_page():
-    print("AAAA")
     return redirect(url_for('word_learning_todays_word'))
 
 @app.route('/get_user_pronounce', methods=['GET', 'POST'])
 def get_user_pronounce():
     if request.method == 'POST':
         if 'file' in request.files:
+            print('file')
             audio = request.files['file']
             audio.save('./flask/static/src/user_audio/{user}.wav'.format(user=session['user'] if 'user' in session else ''))
+    
             #session['user_pronounce'] = 모델에서 인식한 사용자 발음
             session['user_pronounce'] = '다너'
             session['user_audio'] = '../static/src/user_audio/{user}.wav'.format(user=session['user'] if 'user' in session else '')
+        else:
+            time.sleep(1)
     return redirect(url_for(session['now']))
 
 if __name__ == "__main__":

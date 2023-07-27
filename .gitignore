@@ -19,7 +19,7 @@ AI_HUB
 requirements.txt
 *.csv
 *.wav
-audio.mp3
+*.mp3
 .cache/
 .ipython/
 .local/
