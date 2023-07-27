@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, current_app, make_response
-from functions import thread todays_word
-
+from functions import thread, todays_word
+from word_db import get_rule, word_dict
 
 # Python standard libraries
 import json
@@ -24,7 +24,7 @@ from google_login.google_login_db import init_db_command, get_db
 app = Flask(__name__)
 app.secret_key = b'817089'
 
-# thread()
+thread()
 # Configuration
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", '237000578042-ersra4178bpitdll1bebphfnrkgpaacj.apps.googleusercontent.com')
 GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", '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')
@@ -109,7 +109,7 @@ def word_learning_additional_word():
 
     user_audio = session['user_audio'] if 'user_audio' in session else ''
     user_pronounce = session['user_pronounce'] if 'user_pronounce' in session else ''
-
+    print(user_audio)
     return render_template("word_learning.html", user=user, lang=language, word=word, pronounce=pronounce,explanation='나도 9900억 받고 싶다...', audio='../static/src/audio/0310.mp3', user_audio=user_audio, user_pronounce=user_pronounce, add=todays_word, rule=rule, add_or_today='add')
 
 @app.route('/go_prev_word', methods=['GET','POST'])
@@ -135,6 +135,7 @@ def go_prev_page():
 
 @app.route('/get_user_pronounce', methods=['GET', 'POST'])
 def get_user_pronounce():
+    print("AAAAAA")
     if request.method == 'POST':
         if 'file' in request.files:
             audio = request.files['file']

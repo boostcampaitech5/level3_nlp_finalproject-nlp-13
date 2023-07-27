@@ -12,7 +12,7 @@ def home():
     session['now'] = 'home'
     user = session['user'] if 'user' in session else ''
     language = session['language'] if 'language' in session else 'kor'
-    attend = [True] * 100
+    attend = [True, False] * 50
     return render_template("main.html", lang=language, word1 = todays_word[0], word2 = todays_word[1], word3 = todays_word[2], user=user, attend=attend)
 
 @app.route('/language_select', methods=['GET','POST'])
@@ -106,7 +106,6 @@ def go_next_word():
 
 @app.route('/go_prev_page', methods=['GET','POST'])
 def go_prev_page():
-    print("AAAA")
     return redirect(url_for('word_learning_todays_word'))
 
 @app.route('/get_user_pronounce', methods=['GET', 'POST'])
