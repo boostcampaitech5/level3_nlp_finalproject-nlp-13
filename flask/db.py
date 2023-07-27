@@ -50,10 +50,11 @@ def attendance(target_email):
         #update the document
         collection.update_one({'email': target_email}, {'$set': existing_data})
     #print("attendance complete")
+    return heatmap(target_email)
 
 def heatmap(target_email):
     today = datetime.now().date() #todays's date
-    days=5 #99
+    days=99 #99
     start = today + timedelta(days = -days)
     new = []
 
