@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, current_app, make_response
 from functions import thread, todays_word
-from word_db import get_rule, word_dict
+from  db import *
 
 # Python standard libraries
 import json
@@ -39,11 +39,26 @@ thread()
 
 @app.route('/', methods=['GET','POST'])
 def home():
-    session['now'] = 'home'
-    user = session['user'] if 'user' in session else ''
-    language = session['language'] if 'language' in session else 'kor'
-    attend = [True] * 100
-    return render_template("main.html", lang=language, word1 = todays_word[0], word2 = todays_word[1], word3 = todays_word[2], user=user, attend=attend)
+    
+    if not current_user.is_authenticated:
+        session['now'] = 'home'
+        user = session['user'] if 'user' in session else ''
+        language = session['language'] if 'language' in session else 'kor'
+        #attend = [True] * 100
+        attend = attendance(current_user.email) #check attendance
+        return render_template("main.html", lang=language, word1 = todays_word[0], word2 = todays_word[1], word3 = todays_word[2], user=user, attend=attend)   
+    
+    else:
+        user = current_user.name
+        email = current_user.email
+        global user_email_info
+        user_email_info = {'email':email,'user':user} 
+        check(user_email_info) #add a new user
+        language = session['language'] if 'language' in session else 'kor'
+        #attend = [True] * 100
+        attend = attendance(email) #check attendance
+        return render_template("main.html", lang=language, word1 = todays_word[0], word2 = todays_word[1], word3 = todays_word[2], user=user)
+
 
 @app.route('/language_select', methods=['GET','POST'])
 def language_select():
