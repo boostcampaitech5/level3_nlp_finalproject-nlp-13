@@ -21,8 +21,8 @@ def language_select():
         session['language'] = request.form['language']
     return redirect(url_for(session['now']))
 
-@app.route('/sign_in', methods=['GET','POST'])
-def sign_in():
+@app.route('/login', methods=['GET','POST'])
+def login():
     if request.method == 'POST':
         ID = request.form['ID']
         PW = request.form['PW']
@@ -31,8 +31,8 @@ def sign_in():
     session['user'] = ID
     return redirect(url_for(session['now']))
 
-@app.route('/sign_out', methods=['GET','POST'])
-def sign_out():
+@app.route('/logout', methods=['GET','POST'])
+def logout():
     if request.method == 'POST':
         session.pop('user')
     return redirect(url_for(session['now']))

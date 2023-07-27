@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, current_app, make_response
-from functions import thread todays_word
-
+from functions import thread, todays_word
+from word_db import get_rule, word_dict
 
 # Python standard libraries
 import json
@@ -23,6 +23,7 @@ from google_login.google_login_db import init_db_command, get_db
     
 app = Flask(__name__)
 app.secret_key = b'817089'
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 # thread()
 # Configuration
@@ -34,25 +35,15 @@ GOOGLE_DISCOVERY_URL = (
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+thread()
+
 @app.route('/', methods=['GET','POST'])
 def home():
-    
-    if not current_user.is_authenticated:
-        session['now'] = 'home'
-        user = session['user'] if 'user' in session else ''
-        language = session['language'] if 'language' in session else 'kor'
-        attend = [True] * 100
-        return render_template("main.html", lang=language, word1 = todays_word[0], word2 = todays_word[1], word3 = todays_word[2], user=user, attend=attend)   
-    
-    else:
-        user = current_user.name
-        email = current_user.email
-        global user_email_info
-        user_email_info = {'user':user, 'email':email} 
-        language = session['language'] if 'language' in session else 'kor'
-        attend = [True] * 100
-        return render_template("main.html", lang=language, word1 = todays_word[0], word2 = todays_word[1], word3 = todays_word[2], user=user)
-
+    session['now'] = 'home'
+    user = session['user'] if 'user' in session else ''
+    language = session['language'] if 'language' in session else 'kor'
+    attend = [True] * 100
+    return render_template("main.html", lang=language, word1 = todays_word[0], word2 = todays_word[1], word3 = todays_word[2], user=user, attend=attend)
 
 @app.route('/language_select', methods=['GET','POST'])
 def language_select():
@@ -256,4 +247,5 @@ def get_google_provider_cfg():
 
 
 if __name__ == "__main__":
-    app.run(ssl_context="adhoc", debug=True)
+    app.run(host='0.0.0.0', debug=True, port=40001)
+    #app.run(ssl_context="adhoc", debug=True)
