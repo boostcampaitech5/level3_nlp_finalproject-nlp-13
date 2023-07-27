@@ -11,6 +11,7 @@ import sys
 import time
 import os
 import sys, os
+from pydub import AudioSegment
 
 # Third party libraries
 from flask import Flask, redirect, request, url_for
@@ -26,8 +27,10 @@ import requests
 from google_login.user import User
 from google_login.google_login_db import init_db_command, get_db
 
+sys.path.append('/opt/ml/train')
 sys.path.append('/opt/ml/backend')
 from translate import papago_translate
+from inference import inference
 
 app = Flask(__name__)
 app.secret_key = b'817089'
@@ -43,10 +46,9 @@ GOOGLE_DISCOVERY_URL = (
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-thread()
-
 @app.route('/', methods=['GET','POST'])
 def home():
+    session.clear()
     if not current_user.is_authenticated:
         session['now'] = 'home'
         user = ''
@@ -89,7 +91,7 @@ def word_learning_todays_word():
         else:
             session.pop('audio')
         user_audio = session['user_audio']
-        user_pronounce = '다너'
+        user_pronounce = inference('./flask/'+user_audio[3:], '/opt/ml/save_model')
     else:
         user_audio = ''
         user_pronounce = ''
@@ -131,7 +133,7 @@ def word_learning_additional_word():
         else:
             session.pop('audio')
         user_audio = session['user_audio']
-        user_pronounce = '다너'
+        user_pronounce = inference('./flask/'+user_audio[3:], '/opt/ml/save_model')
     else:
         user_audio = ''
         user_pronounce = ''
@@ -191,9 +193,14 @@ def get_user_pronounce():
         if 'file' in request.files:
             session['audio'] = 1
             audio = request.files['file']
+
+            user = current_user.name if current_user.is_authenticated else ''
             now = time.time()
-            audio.save('./flask/static/src/user_audio/{user}{time}.mp3'.format(user=current_user.name if current_user.is_authenticated else '', time=now))
-            session['user_audio'] = '../static/src/user_audio/{user}{time}.mp3'.format(user=current_user.name if current_user.is_authenticated else '', time=now)
+
+            webm = AudioSegment.from_file(audio, format="webm")
+            webm.export('./flask/static/src/user_audio/{user}{time}.wav'.format(user=user, time=now), format="wav")
+
+            session['user_audio'] = '../static/src/user_audio/{user}{time}.wav'.format(user=user, time=now)
     return redirect(url_for(session['now']))
 
 @login_manager.unauthorized_handler
