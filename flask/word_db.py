@@ -2,7 +2,7 @@ import pymongo
 import random
 import yaml
 
-with open('/opt/ml/flask/api.yaml') as f:
+with open('./flask/api.yaml') as f:
     api = yaml.load(f, Loader=yaml.FullLoader)
 
 client = api['client']
