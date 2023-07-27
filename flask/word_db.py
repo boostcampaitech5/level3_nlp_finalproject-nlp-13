@@ -83,9 +83,10 @@ def word_dict(input_word):
     recommend_word = word_recommend(rule_list)
     index_ = data['index']
     word_ = data['word']
+    meaning = data['mean']
     audio_path = f'./audio/nara/{index_}_{word_}_nara.wav'
     if rule == []: rule = ''
-    a = {'word':word_, 'g2p_word':data['g2p_word'], 'rule': rule, 'audio': audio_path, 'recommend':recommend_word}
+    a = {'word':word_, 'g2p_word':data['g2p_word'], 'meaning': meaning, 'rule': rule, 'audio': audio_path, 'recommend':recommend_word}
     return a
     
 def get_rule_id2text():
