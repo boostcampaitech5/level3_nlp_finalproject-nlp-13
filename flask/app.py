@@ -7,6 +7,10 @@ from  db import *
 import json
 import os
 import sqlite3
+import sys
+import time
+import os
+import sys, os
 
 # Third party libraries
 from flask import Flask, redirect, request, url_for
@@ -21,7 +25,10 @@ from oauthlib.oauth2 import WebApplicationClient
 import requests
 from google_login.user import User
 from google_login.google_login_db import init_db_command, get_db
-    
+
+sys.path.append('/opt/ml/backend')
+from translate import papago_translate
+
 app = Flask(__name__)
 app.secret_key = b'817089'
 
@@ -71,53 +78,88 @@ def word_learning_todays_word():
     language = session['language'] if 'language' in session else 'kor'
 
     if request.method == 'POST':
-        if 'user_audio' in session:
-            session.pop('user_audio')
-        if 'user_pronounce' in session:
-            session.pop('user_pronounce')
         session['num'] = int(request.form['num'])
+
+    if 'audio' in session:
+        if session['audio'] == 1:
+            session['audio'] = 0
+        else:
+            session.pop('audio')
+        user_audio = session['user_audio']
+        user_pronounce = '다너'
+    else:
+        user_audio = ''
+        user_pronounce = ''
 
     word = todays_word[session['num']]
     word_info = word_dict(word)
     pronounce = word_info['g2p_word']
     rule = [word_info['rule'], get_rule(word_info['rule'])]
     recommend = word_info['recommend']
-    #explanation = 단어 설명
-    #audio = 단어 발음 음성
 
-    user_audio = session['user_audio'] if 'user_audio' in session else ''
-    user_pronounce = session['user_pronounce'] if 'user_pronounce' in session else ''
+    if language == 'kor':
+        explanation = word_info['meaning']
+    elif language == 'eng':
+        explanation = papago_translate(word_info['meaning'], 'ko', 'en')
+    elif language == 'chn':
+        explanation = papago_translate(word_info['meaning'],'ko', 'zh-CN')
+    elif language == 'jpn':
+        explanation = papago_translate(word_info['meaning'],'ko', 'ja')
+    elif language == 'tai':
+        explanation = papago_translate(word_info['meaning'],'ko', 'th')
+    else:
+        explanation = papago_translate(word_info['meaning'],'ko', 'vi')
+    audio = word_info['audio']
 
-    return render_template("word_learning.html", user=user, lang=language, word=word, pronounce=pronounce, explanation='수료하면 뭐하지...', audio='../static/src/audio/어른.flac', user_audio=user_audio, user_pronounce=user_pronounce, add=recommend, rule=rule, add_or_today='today')
+    return render_template("word_learning.html", user=user, lang=language, word=word, pronounce=pronounce, explanation=explanation, audio=audio, user_audio=user_audio, user_pronounce=user_pronounce, add=recommend, rule=rule, add_or_today='today')
 
 @app.route('/word_learning_additional_word', methods=['GET','POST'])
 def word_learning_additional_word():
     session['now'] = 'word_learning_additional_word'
-
     user = current_user.name if current_user.is_authenticated else ''
     language = session['language'] if 'language' in session else 'kor'
 
     if request.method == 'POST':
-        if 'user_audio' in session:
-            session.pop('user_audio')
-        if 'user_pronounce' in session:
-            session.pop('user_pronounce')
         session['word'] = request.form['word']
+
+    if 'audio' in session:
+        if session['audio'] == 1:
+            session['audio'] = 0
+        else:
+            session.pop('audio')
+        user_audio = session['user_audio']
+        user_pronounce = '다너'
+    else:
+        user_audio = ''
+        user_pronounce = ''
 
     word = session['word']
     word_info = word_dict(word)
     pronounce = word_info['g2p_word']
     rule = [word_info['rule'], get_rule(word_info['rule'])]
-    #explanation = 단어 설명
-    #audio = 단어 발음 음성
+    
+    if language == 'kor':
+        explanation = word_info['meaning']
+    elif language == 'eng':
+        explanation = papago_translate(word_info['meaning'], 'ko', 'en')
+    elif language == 'chn':
+        explanation = papago_translate(word_info['meaning'],'ko', 'zh-CN')
+    elif language == 'jpn':
+        explanation = papago_translate(word_info['meaning'],'ko', 'ja')
+    elif language == 'tai':
+        explanation = papago_translate(word_info['meaning'],'ko', 'th')
+    else:
+        explanation = papago_translate(word_info['meaning'],'ko', 'vi')
+    audio = word_info['audio']
 
-    user_audio = session['user_audio'] if 'user_audio' in session else ''
-    user_pronounce = session['user_pronounce'] if 'user_pronounce' in session else ''
-
-    return render_template("word_learning.html", user=user, lang=language, word=word, pronounce=pronounce,explanation='나도 9900억 받고 싶다...', audio='../static/src/audio/0310.mp3', user_audio=user_audio, user_pronounce=user_pronounce, add=todays_word, rule=rule, add_or_today='add')
+    return render_template("word_learning.html", user=user, lang=language, word=word, pronounce=pronounce,explanation=explanation, audio=audio, user_audio=user_audio, user_pronounce=user_pronounce, add=todays_word, rule=rule, add_or_today='add')
 
 @app.route('/go_prev_word', methods=['GET','POST'])
 def go_prev_word():
+    if 'user_audio' in session:
+        session.pop('user_audio')
+    if 'user_pronounce' in session:
+        session.pop('user_pronounce')
     if session['num'] == 0:
         session['num'] = 2
     else:
@@ -126,6 +168,10 @@ def go_prev_word():
 
 @app.route('/go_next_word', methods=['GET','POST'])
 def go_next_word():
+    if 'user_audio' in session:
+        session.pop('user_audio')
+    if 'user_pronounce' in session:
+        session.pop('user_pronounce')
     if session['num'] == 2:
         session['num'] = 0
     else:
@@ -140,11 +186,11 @@ def go_prev_page():
 def get_user_pronounce():
     if request.method == 'POST':
         if 'file' in request.files:
+            session['audio'] = 1
             audio = request.files['file']
-            audio.save('./flask/static/src/user_audio/{user}.wav'.format(user=session['user'] if 'user' in session else ''))
-            #session['user_pronounce'] = 모델에서 인식한 사용자 발음
-            session['user_pronounce'] = '다너'
-            session['user_audio'] = '../static/src/user_audio/{user}.wav'.format(user=session['user'] if 'user' in session else '')
+            now = time.time()
+            audio.save('./flask/static/src/user_audio/{user}{time}.mp3'.format(user=current_user.name if current_user.is_authenticated else '', time=now))
+            session['user_audio'] = '../static/src/user_audio/{user}{time}.mp3'.format(user=current_user.name if current_user.is_authenticated else '', time=now)
     return redirect(url_for(session['now']))
 
 @login_manager.unauthorized_handler
@@ -166,7 +212,6 @@ client = WebApplicationClient(GOOGLE_CLIENT_ID)
 @login_manager.user_loader
 def load_user(user_id):
     return User.get(user_id)
-
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -259,4 +304,4 @@ def get_google_provider_cfg():
 
 
 if __name__ == "__main__":
-    app.run(ssl_context="adhoc", debug=True)
+    app.run(debug=True, ssl_context="adhoc")
