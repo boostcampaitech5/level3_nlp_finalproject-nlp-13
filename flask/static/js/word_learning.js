@@ -22,7 +22,7 @@ function play(){
 $btn.onclick = async function(event){
     if (!isRecording){
         isRecording = true;
-        document.getElementById('record_button').src="../static/src/img/record_clicked.png";
+        document.getElementById('record_button').src="../static/src/img/recording_"+language+".png";
         const mediaStream = await navigator.mediaDevices.getUserMedia({audio: true});
         mediaRecorder = new MediaRecorder(mediaStream);
 
@@ -54,7 +54,7 @@ $btn.onclick = async function(event){
         mediaRecorder.start();
         
     }else{
-        document.getElementById('record_button').src="../static/src/img/record.png";
+        document.getElementById('record_button').src="../static/src/img/record_"+language+".png";
         mediaRecorder.stop();
         isRecording = false;
     }

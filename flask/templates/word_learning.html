@@ -4,11 +4,16 @@
 
 <div>
     <div class="todays_word">
-        {% if add_or_today == 'today' %}
-            <p style="font-weight: 750;">오늘의 단어</p>
-        {% else %}
-            <p style="font-weight: 750;">학습 추천 단어</p>
-        {% endif %}
+        <div class="word_card_top">
+            {% if add_or_today == 'today' %}
+                <p style="font-weight: 750;">오늘의 단어</p>
+            {% else %}
+                <p style="font-weight: 750;">학습 추천 단어</p>
+            {% endif %}
+            <form id="home" method="POST" action="/">
+                <input type="image" src="../static/src/img/home.png" type="submit" class="home_button">
+            </form>
+        </div> 
 
         <div class="word_card">
             <div id="word">
@@ -25,7 +30,7 @@
         
         <div id="recording">
             <button id="record">
-                <img id="record_button" src="../static/src/img/record.png">
+                    <img id="record_button" src="../static/src/img/record_{{lang}}.png">
             </button>
             <audio id="play" controls>재생</audio>
             <p id="user_audio" hidden>{{user_audio}}</p>
@@ -62,18 +67,21 @@
             
             {% if add_or_today == 'today' %} 
                 <form class="arrow" id="next" method="POST" action="go_next_word">
-                   <input type="image" src="../static/src/img/next.png" type="submit" class="move_button">
+                    <input type="image" src="../static/src/img/next.png" type="submit" class="move_button">
                 </form>
             {% endif %}
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var language = '{{lang}}'
+</script>
 <script src="../static/js/word_learning.js"></script>
 {% endblock %}
 
 {% block column_right %}
 <link rel="stylesheet" href="../static/css/word_learning.css">
-<div name="음운 변동 규칙" class="rule" style="margin-top: 5%;">
+<div name="음운 변동 규칙" class="rule">
     <h3>{{rule[0]}}</h3>
     <p style="font-size: 1vw;">{{rule[1]}}</p>
 </div>
