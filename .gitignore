@@ -36,3 +36,4 @@ tmp/
 test/
 *.yaml
 *.bin
+sqlite_db

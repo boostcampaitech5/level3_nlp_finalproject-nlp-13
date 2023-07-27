@@ -74,16 +74,14 @@
             <div class="column right">
                 <div class="user_info">
                     {% if user != '' %}
-                        <form method="POST" action="sign_out">
+                        <form method="POST" action="logout">
                             <img src="https://image.webtoonguide.com/py_c/5d/3d/0458152722a65a53378d2dd9a9e2" style="display: block; margin: 0 auto; margin-top: 10%; border-radius: 50%;" width="40%" height="40%" alt="프로필 사진">
                             <div><span style="color:black">{{user}}</span><span style="color: gray">님</span></div>
                             <input type="submit" id = 'Signout', value="Sign out">
                         </form>
                     {% else %}
-                        <form method="POST" action="sign_in">
+                        <form method="POST" action="login">
                             <h1 class="logo">AI야어여</h1>
-                            <input type="text" name="ID" maxlength="10" class="login-form-field" placeholder="Username"></label><br>
-                            <input type="password" name="PW" maxlength="10" class="login-form-field" placeholder="Password"></label><br>
                             <input class="login-form-submit" type="submit" id = 'Signin', value="Sign in">
                         </form>
                     {% endif %}
