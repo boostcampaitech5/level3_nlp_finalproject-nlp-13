@@ -5,6 +5,7 @@ import pandas as pd
 from tqdm.auto import tqdm
 from sklearn.model_selection import train_test_split
 import nlptutti as metrics
+import librosa
 
 def compute_metrics(pred: list, answer: list) -> 'dict':
     '''
@@ -111,5 +112,5 @@ def infer_output_with_metric(data, path, model):
 
 if __name__ == "__main__":
   # file_info = ["오디오 경로 정보 파일", "원천데이터 폴더 경로", "모델 경로"]
-  infer_output_with_metric("data/foreign_audio_shuffled.csv", "data/", "save_model/PJY_4_kresnik")
-  # print(inference("data/ncloud_tts_data/jinho/1_가격_jinho.wav", "./save_model/PJY_4_tts_word"))
+  #infer_output_with_metric("data/foreign_audio_shuffled.csv", "data/", "save_model/PJY_4_kresnik")
+  print(inference("/opt/ml/flask/static/src/audio/nara/3_가까워지다_nara.wav", "./save_model"))

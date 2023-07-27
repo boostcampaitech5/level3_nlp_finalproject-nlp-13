@@ -9,6 +9,8 @@ let isRecording = false;
 let mediaRecorder = null;
 
 const audioArray = [];
+const mime = ['audio/wav', 'audio/mpeg', 'audio/webm', 'audio/ogg']
+  .filter(MediaRecorder.isTypeSupported)[0];
 
 $audioE.src=document.getElementById("user_audio").innerText
 
@@ -31,12 +33,12 @@ $btn.onclick = async function(event){
         }
 
         mediaRecorder.onstop = (event)=>{
-            const blob = new Blob(audioArray, {"type": "audio/mp3"});
+            const blob = new Blob(audioArray, {type: 'audio/webm'});
             
             audioArray.splice(0);
             
             var data=new FormData()
-            data.append('file', blob, 'audio.mp3')
+            data.append('file', blob, 'audio.webm')
 
             fetch('/get_user_pronounce',{
                 method: 'POST',
