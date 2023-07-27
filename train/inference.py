@@ -13,7 +13,7 @@ def compute_metrics(pred: list, answer: list) -> 'dict':
     '''
     wer_metric = 0
     cer_metric = 0
-  
+
     for i in range(len(pred)):
         preds = pred[i].replace(" ", "")
         answers = answer[i].replace(" ", "")

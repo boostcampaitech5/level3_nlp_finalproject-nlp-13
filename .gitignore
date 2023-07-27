@@ -34,4 +34,6 @@ nohup.out
 .dotnet/
 tmp/
 test/
-api.yaml
+*.yaml
+*.bin
+sqlite_db

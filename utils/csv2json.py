@@ -4,7 +4,7 @@ import pandas as pd
 
 #csv file to json file
 
-df = pd.read_csv('foreign_audio_shuffled.csv', encoding='UTF-8')
+df = pd.read_csv('../foreign_audio_shuffled.csv', encoding='UTF-8')
 print(df)
 
 data={
@@ -14,7 +14,7 @@ data={
 
 for i in range(0,len(df)):
     data['audio'].append(df.iloc[i,0])
-    data['sentence'].append(df.iloc[i,2])
+    data['sentence'].append(df.iloc[i,3])
 
 with open('data.json', 'w') as json_file:
     json.dump(data, json_file)
