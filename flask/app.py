@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, current_app, make_response
-from functions import thread todays_word
+from functions import thread, todays_word
+from word_db import get_rule, word_dict
 from  db import *
 
 # Python standard libraries
@@ -23,8 +24,9 @@ from google_login.google_login_db import init_db_command, get_db
     
 app = Flask(__name__)
 app.secret_key = b'817089'
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
-# thread()
+thread()
 # Configuration
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", '237000578042-ersra4178bpitdll1bebphfnrkgpaacj.apps.googleusercontent.com')
 GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", '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')
@@ -34,27 +36,28 @@ GOOGLE_DISCOVERY_URL = (
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+thread()
+
 @app.route('/', methods=['GET','POST'])
 def home():
-    
     if not current_user.is_authenticated:
         session['now'] = 'home'
-        user = session['user'] if 'user' in session else ''
+        user = ''
         language = session['language'] if 'language' in session else 'kor'
-        #attend = [True] * 100
-        attend = attendance(current_user.email) #check attendance
-        return render_template("main.html", lang=language, word1 = todays_word[0], word2 = todays_word[1], word3 = todays_word[2], user=user, attend=attend)   
+
+        #attend = attendance(current_user.email) #check attendance
+        return render_template("main.html", lang=language, word1 = todays_word[0], word2 = todays_word[1], word3 = todays_word[2], user=user)   
     
     else:
         user = current_user.name
         email = current_user.email
         global user_email_info
-        user_email_info = {'email':email,'user':user} 
+        user_email_info = {'email':email,'name':user} 
         check(user_email_info) #add a new user
         language = session['language'] if 'language' in session else 'kor'
-        #attend = [True] * 100
+
         attend = attendance(email) #check attendance
-        return render_template("main.html", lang=language, word1 = todays_word[0], word2 = todays_word[1], word3 = todays_word[2], user=user)
+        return render_template("main.html", lang=language, word1 = todays_word[0], word2 = todays_word[1], word3 = todays_word[2], user=user, attend=attend)
 
 
 @app.route('/language_select', methods=['GET','POST'])
@@ -67,7 +70,7 @@ def language_select():
 @app.route('/word_learning_todays_word', methods=['GET','POST'])
 def word_learning_todays_word():
     session['now'] = 'word_learning_todays_word'
-    user = session['user'] if 'user' in session else ''
+    user = current_user.name if current_user.is_authenticated else ''
     language = session['language'] if 'language' in session else 'kor'
 
     if request.method == 'POST':
@@ -93,7 +96,8 @@ def word_learning_todays_word():
 @app.route('/word_learning_additional_word', methods=['GET','POST'])
 def word_learning_additional_word():
     session['now'] = 'word_learning_additional_word'
-    user = session['user'] if 'user' in session else ''
+
+    user = current_user.name if current_user.is_authenticated else ''
     language = session['language'] if 'language' in session else 'kor'
 
     if request.method == 'POST':
@@ -133,7 +137,6 @@ def go_next_word():
 
 @app.route('/go_prev_page', methods=['GET','POST'])
 def go_prev_page():
-    print("AAAA")
     return redirect(url_for('word_learning_todays_word'))
 
 @app.route('/get_user_pronounce', methods=['GET', 'POST'])
@@ -259,4 +262,5 @@ def get_google_provider_cfg():
 
 
 if __name__ == "__main__":
-    app.run(ssl_context="adhoc", debug=True)
+    app.run(host='0.0.0.0', debug=True, port=40001)
+    #app.run(ssl_context="adhoc", debug=True)
