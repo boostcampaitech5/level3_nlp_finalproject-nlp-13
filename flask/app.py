@@ -31,6 +31,7 @@ from translate import papago_translate
 
 app = Flask(__name__)
 app.secret_key = b'817089'
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 thread()
 # Configuration
@@ -41,6 +42,8 @@ GOOGLE_DISCOVERY_URL = (
 )
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+thread()
 
 @app.route('/', methods=['GET','POST'])
 def home():

@@ -132,7 +132,7 @@ span {
     display: inline-block;
 }
 
-#Signout {
+#Signout, #Signin {
     border-radius: 50px; 
     border-style: hidden; 
     background-image: linear-gradient(to right, #78E7FF, #00CFFD);
@@ -146,7 +146,7 @@ span {
     margin: auto;
 }
 
-#Signout:hover {
+#Signout:hover , #Signin:hover{
     cursor: pointer;
 }
 
