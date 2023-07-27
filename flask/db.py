@@ -7,7 +7,7 @@ import yaml
 import os.path
 from os import path
 
-with open('api.yaml') as f:
+with open('/opt/ml/flask/api.yaml') as f:
     db_key = yaml.load(f, Loader=yaml.FullLoader)
 
 client = pymongo.MongoClient(db_key['mongo_client'])
