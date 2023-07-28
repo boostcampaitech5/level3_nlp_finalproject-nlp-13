@@ -15,10 +15,15 @@ AI야어여는 한국어를 학습하며 발음을 교정할 수 있는 한국�
 >[wrapup report](link)   
 
 ## AI야어여 기능 살펴보기 
+#### 1. 로그인 및 출석 횟수를 잔디를 통해 확인 가능 
 ![Alt text](/resources/service1.png)
+#### 2. 오늘의 단어 학습 
 ![Alt text](/resources/service2.png)
+#### 3. 한국어 외 영어, 중국어, 일본어, 태국어, 베트남어로 학습 가능 
 ![Alt text](/resources/service3.png)
+#### 4. 오늘의 단어와 비슷한 발음 기법을 가진 단어를 추가로 제공
 ![Alt text](/resources/service.gif)
+#### 5. 사용자의 음성을 녹음하여 피드백을 제공해주는 기능 제공
 ![Alt text](/resources/service_rec.gif)
 * * *
 ## Service Architectecture
@@ -34,3 +39,4 @@ AI야어여는 한국어를 학습하며 발음을 교정할 수 있는 한국�
 ![Alt text](/resources/data2.png)   
 ## MODEL
 외국인 대상 서비스임을 고려해 Cross-Lingual Speech Representation을 학습하는 wav2vec 2.0 기반 XLSR를 사용하였습니다. 그중 한국어로 발음을 비교하기 때문에 한국어로 pre-training된 모델이 필요하여 huggingface의 'kresnik/wav2vec2-large-xlsr-korean'를 사용하였습니다. 
+
