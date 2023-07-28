@@ -60,7 +60,7 @@ AI야어여는 한국어를 학습하며 발음을 교정할 수 있는 한국�
 >[wrapup report](link)   
 
 ## AI야어여 기능 살펴보기 
-#### 1. 로그인 및 출석 횟수를 잔디를 통해 확인 가능 
+#### 1. 로그인 및 출석 기록 (아래 사진의 우측 부분)
 ![Alt text](/resources/service1.png)
 #### 2. 오늘의 단어 학습 
 ![Alt text](/resources/service2.png)
