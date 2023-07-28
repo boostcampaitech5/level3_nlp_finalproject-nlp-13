@@ -39,4 +39,7 @@ AI야어여는 한국어를 학습하며 발음을 교정할 수 있는 한국�
 ![Alt text](/resources/data2.png)   
 ## MODEL
 외국인 대상 서비스임을 고려해 Cross-Lingual Speech Representation을 학습하는 wav2vec 2.0 기반 XLSR를 사용하였습니다. 그중 한국어로 발음을 비교하기 때문에 한국어로 pre-training된 모델이 필요하여 huggingface의 'kresnik/wav2vec2-large-xlsr-korean'를 사용하였습니다. 
-
+   
+기존 Tokenzier는 잘 사용되지 않는 꾜, 갇와 같은 문자들은 가지고 있지 않아 unk 토큰으로 처리하는 문제점이 있어 G2P 변환 문장으로 새로운 Vocab을 만들어 해결하였습니다.
+   
+최종적으로 한국인 음성 데이텅와 외국인 음성 데이터로 학습 시키고, Vocab Adaptation이 적용되어 있는 모델이 가장 좋은 성능을 보였습니다.
