@@ -38,11 +38,12 @@ def attendance(target_email):
     #Check whether the email is in the database
     existing_data = collection.find_one({'email': target_email})
     new_date = new_date.strftime("%Y-%m-%d") #datetime to string
-
+    
     if existing_data:
         if 'date' in existing_data:
-            #Add new date
-            existing_data['date'].append(new_date)
+            #If it is the first visit of the day, add new date
+            if collection.find_one({'email': target_email,"date":new_date})==None:
+                existing_data['date'].append(new_date)
         else:
             #Create a date field
             existing_data['date'] = [new_date]
