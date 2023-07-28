@@ -10,13 +10,27 @@ AI야어여는 한국어를 학습하며 발음을 교정할 수 있는 한국�
 그로 인해 저희 HYPE 연어는 기초 한국어를 학습하려는 사용자에게 단어 학습 및 발음 교정 서비스를 제공하는 것을 목표로 AI야어여를 만들게 되었습니다.   
 하루에 총 3개의 단어를 학습하여 부담 없이 꾸준하게 학습할 수 있도록 하였습니다.   
    
->[발표 영상](link)
->[발표 자료](link)
->[wrapup report](link)
+>[발표 영상](link)   
+>[발표 자료](link)   
+>[wrapup report](link)   
 
 ## AI야어여 기능 살펴보기 
-
+![Alt text](/resources/service1.png)
+![Alt text](/resources/service2.png)
+![Alt text](/resources/service3.png)
+![Alt text](/resources/service.gif)
+![Alt text](/resources/service_rec.gif)
+* * *
+## Service Architectecture
+![Alt text](/resources/architecture.png)
+## Service Flow Chart
+![Alt text](/resources/flowchart.png)
 * * *
 ## Data 
-
+모델에 한국인이 한국어를 발음하는 현지 발음을 학습시키기 위해 [AI Hub 자유대화 음성 (일반남녀)](https://aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=realm&dataSetSn=109)을 사용하였고, 억양 등 외국인이 한국어를 발음할 때의 특성을 학습시키기 위해 [AI Hub 인공지능 학습을 위한 외국인 한국어 발화 음성 데이터](https://aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=realm&dataSetSn=505)를 사용하였습니다.   
+![Alt text](/resources/data1.png)
+   
+이어서 국립국어원에서 제공하는 자주 사용되는 단어 5000여 개를 이용하여 G2P 데이터를 생성하였고, Naver Clover Speech를 이용하여 4 명의 음성으로 음성합성하여 새로운 데이터를 추가하였습니다.   
+![Alt text](/resources/data2.png)   
 ## MODEL
+외국인 대상 서비스임을 고려해 Cross-Lingual Speech Representation을 학습하는 wav2vec 2.0 기반 XLSR를 사용하였습니다. 그중 한국어로 발음을 비교하기 때문에 한국어로 pre-training된 모델이 필요하여 huggingface의 'kresnik/wav2vec2-large-xlsr-korean'를 사용하였습니다. 
