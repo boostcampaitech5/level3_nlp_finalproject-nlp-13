@@ -37,6 +37,7 @@ test/
 *.yaml
 *.bin
 sqlite_db
+new.py
 google-cloud-sdk/
 Dockerfile
 .dockerignore
