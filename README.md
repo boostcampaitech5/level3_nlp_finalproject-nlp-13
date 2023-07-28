@@ -1,5 +1,49 @@
 # 외국인을 위한 발음 교정 서비스, AI야어여
 
+### HYPE연어
+<table>
+    <tr height="160px">
+        <td align="center" width="150px">
+            <a href="https://github.com/Yunhee000"><img height="120px" width="120px" src="https://avatars.githubusercontent.com/Yunhee000"/></a>
+            <br/>
+            <a href="https://github.com/Yunhee000"><strong>김윤희</strong></a>
+            <br />
+        </td>
+        <td align="center" width="150px">
+            <a href="https://github.com/8804who"><img height="120px" width="120px" src="https://avatars.githubusercontent.com/8804who"/></a>
+            <br/>
+            <a href="https://github.com/8804who"><strong>김주성</strong></a>
+            <br />
+        </td>
+        <td align="center" width="150px">
+            <a href="https://github.com/bom1215"><img height="120px" width="120px" src="https://avatars.githubusercontent.com/bom1215"/></a>
+            <br/>
+            <a href="https://github.com/bom1215"><strong>이준범</strong></a>
+            <br />
+        </td>
+        <td align="center" width="150px">
+            <a href="https://github.com/ella0106"><img height="120px" width="120px" src="https://avatars.githubusercontent.com/ella0106"/></a>
+            <br/>
+            <a href="https://github.com/ella0106"><strong>박지연</strong></a>
+            <br />
+        </td>
+        <td align="center" width="150px">
+            <a href="https://github.com/HYOJUNG08"><img height="120px" width="120px" src="https://avatars.githubusercontent.com/HYOJUNG08"/></a>
+            <br/>
+            <a href="https://github.com/HYOJUNG08"><strong>정효정</strong></a>
+            <br />
+        </td>
+    </tr>
+</table>
+<br>
+| 이름 | 역할 |
+| :----: | --- |
+| **김윤희** | 모델 성능 실험, 자료 DB 구축 |
+| **김주성** | 모델 리서치, 모델 성능 실험, 웹 구현 |
+| **이준범** | 데이터 전처리, 모델 성능 실험, 로그인 API 연결 |
+| **박지연** | Vocab Adaptation, 모델 성능 실험 |
+| **정효정** | 모델 리서치, 모델 성능 실험, 로그인 DB 구축 |
+
 ## AI야어여란?
 
 AI야어여는 한국어를 학습하며 발음을 교정할 수 있는 한국어 교육 서비스입니다.    
