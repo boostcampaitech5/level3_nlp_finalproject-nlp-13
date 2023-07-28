@@ -48,7 +48,8 @@ AI야어여는 한국어를 학습하며 발음을 교정할 수 있는 한국�
    
 기존 Tokenzier는 잘 사용되지 않는 꾜, 갇와 같은 문자들은 가지고 있지 않아 unk 토큰으로 처리하는 문제점이 있어 G2P 변환 문장으로 새로운 Vocab을 만들어 해결하였습니다.     
    
-![Alt text](/resources/vocab.png) ![Alt text](/resources/vocab2.png)   
+<p align="center"><img src="/resources/vocab.png" height="100px" width="300px"></p>
+![Alt text](/resources/vocab2.png)   
    
 최종적으로 한국인 음성 데이터와 외국인 음성 데이터로 학습 시키고, Vocab Adaptation이 적용되어 있는 모델이 가장 좋은 성능을 보여, 해당 모델을 이용하였습니다. 
 ![Alt text](/resources/model.png)   
