@@ -44,11 +44,11 @@ AI야어여는 한국어를 학습하며 발음을 교정할 수 있는 한국�
 그중 한국어로 발음을 비교하기 때문에 한국어로 pre-training된 모델이 필요하여 huggingface의 [kresnik/wav2vec2-large-xlsr-korean](https://huggingface.co/kresnik/wav2vec2-large-xlsr-korean)를 사용하였습니다. 
 
 총 6가지 실험을 진행하였으며, 한국인 음성 데이터로 학습한 모델, 한국인 음성과 단어 데이터로 학습한 모델, 한국인 음성 데이터와 외국인 발화 데이터로 학습한 모델을 각각 vocab adaptation을 적용 시킨 것과 안한 것으로 나누어 비교하였습니다.   
-![Alt text](/resources/model2.png) ![Alt text](/resources/model3.png)   
+<img src="/resources/model2.png" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="model2"></img><img src="/resources/model3.png" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="model3"></img><br/>
 ![Alt text](/resources/model4.png) ![Alt text](/resources/model5.png)   
    
-기존 Tokenzier는 잘 사용되지 않는 꾜, 갇와 같은 문자들은 가지고 있지 않아 unk 토큰으로 처리하는 문제점이 있어 G2P 변환 문장으로 새로운 Vocab을 만들어 해결하였습니다.
+기존 Tokenzier는 잘 사용되지 않는 꾜, 갇와 같은 문자들은 가지고 있지 않아 unk 토큰으로 처리하는 문제점이 있어 G2P 변환 문장으로 새로운 Vocab을 만들어 해결하였습니다.   
 ![Alt text](/resources/vocab.png) ![Alt text](/resources/vocab2.png)   
    
-최종적으로 한국인 음성 데이터와 외국인 음성 데이터로 학습 시키고, Vocab Adaptation이 적용되어 있는 모델이 가장 좋은 성능을 보여, 이 모델을 이용하였습니다. 
+최종적으로 한국인 음성 데이터와 외국인 음성 데이터로 학습 시키고, Vocab Adaptation이 적용되어 있는 모델이 가장 좋은 성능을 보여, goekd 모델을 이용하였습니다. 
 ![Alt text](/resources/model.png)   
