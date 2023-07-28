@@ -1,4 +1,8 @@
 import requests
+import yaml
+
+with open('flask/api.yaml') as f:
+    db_key = yaml.load(f, Loader=yaml.FullLoader)
 
 def papago_translate(text: str, source_language: str, target_language: str) -> str:
     
@@ -8,8 +12,8 @@ def papago_translate(text: str, source_language: str, target_language: str) -> s
     
     
     
-    client_id = None
-    client_secret = None
+    client_id = db_key['ClientID']
+    client_secret = db_key['ClientSecret']
 
     data = {'text' : text,
             'source' : source_language,
