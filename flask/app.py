@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, current_app, make_response
-from functions import thread todays_word
+from functions import thread, todays_word
 from  db import *
 
 # Python standard libraries
