@@ -19,7 +19,7 @@ AI_HUB
 requirements.txt
 *.csv
 *.wav
-audio.mp3
+*.mp3
 .cache/
 .ipython/
 .local/
@@ -38,3 +38,7 @@ test/
 *.bin
 sqlite_db
 new.py
+google-cloud-sdk/
+Dockerfile
+.dockerignore
+__pycache__

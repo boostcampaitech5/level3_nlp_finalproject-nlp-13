@@ -9,6 +9,8 @@ let isRecording = false;
 let mediaRecorder = null;
 
 const audioArray = [];
+const mime = ['audio/wav', 'audio/mpeg', 'audio/webm', 'audio/ogg']
+  .filter(MediaRecorder.isTypeSupported)[0];
 
 $audioE.src=document.getElementById("user_audio").innerText
 
@@ -31,25 +33,19 @@ $btn.onclick = async function(event){
         }
 
         mediaRecorder.onstop = (event)=>{
-            const blob = new Blob(audioArray, {"type": "audio/wav"});
+            const blob = new Blob(audioArray, {type: 'audio/webm'});
             
             audioArray.splice(0);
             
             var data=new FormData()
-            data.append('file', blob, 'audio.wav')
+            data.append('file', blob, 'audio.webm')
 
-            fetch('http://127.0.0.1:40001/get_user_pronounce',{
+            fetch('/get_user_pronounce',{
                 method: 'POST',
                 body: data
-            }).then(response => response.json()
-            )
+            }).then((response) => response.json())
 
-            var f = document.createElement("form");
-            f.setAttribute("method","post");
-            f.setAttribute("action","get_user_pronounce");
-
-            document.body.appendChild(f);
-            f.submit();
+            setTimeout(post_pronounce, 3000);
         }
         mediaRecorder.start();
         
@@ -58,6 +54,15 @@ $btn.onclick = async function(event){
         mediaRecorder.stop();
         isRecording = false;
     }
+}
+
+function post_pronounce(){
+    var f = document.createElement("form");
+    f.setAttribute("method","post");
+    f.setAttribute("action","get_user_pronounce");
+
+    document.body.appendChild(f);
+    f.submit();
 }
 
 function word1_click(){
